@@ -1,0 +1,22 @@
+<!--pages/index/main/user/user.wxml-->
+<view class='main-body'>
+  <view class='user-bg'>
+    <image src='{{userInfo.avatarUrl}}' class='user-img'></image>
+    <view class='user-nickname'>{{userInfo.nickName}}</view>
+    <view class='info-title'>关于wo</view>
+  </view>
+
+  <view class='user-info'>
+    
+    <view class='user-all-info'>
+      <view class='user-title'>个人信息</view>
+      <view class='user-get'>
+        <view class='user-sex'>性别：<text>{{sex}}</text></view>
+        <view class='user-sex'>地区：<text>{{userInfo.country}} {{userInfo.province}} {{userInfo.city}}</text></view>
+      </view> 
+      <view class='user-title' style='margin-top:50rpx'>个人介绍</view>
+      <view class='user-sex'>还没有填写个人介绍</view>
+
+    </view>
+  </view>  
+</view>

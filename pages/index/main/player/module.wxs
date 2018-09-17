@@ -1,0 +1,14 @@
+var id= {
+  getId: function (e) {
+    return 'l'+e;
+  },
+  toId:function(e){
+    var a=e-7
+    return 'l'+a
+  }
+};
+
+module.exports = {
+  getId: id.getId,
+  toId:id.toId
+}

@@ -1,0 +1,217 @@
+<!--pages/index/main/main.wxml-->
+<view class='main-body'>
+  <view class="main-left {{sidle ?'main-sidle':'t-time'}}  ">
+    <view class='user-info'>
+      <image class='user-img' src='{{userInfo.avatarUrl}}'></image>
+      <view class='user-name'>{{userInfo.nickName}}</view>
+    </view>
+    <view class='first-option'>
+      <view class='list-option' hover-class='tap-color' bindtap='toMyinfo'>
+        <text class="iconfont icon-youxiang icon-block"></text> 我的消息
+      </view>
+      <view class='list-option' hover-class='tap-color'>
+        <text class="iconfont icon-play icon-block"></text> 最近播放
+      </view>
+      <view class='list-option' hover-class='tap-color'>
+        <text class="iconfont icon-xiazai icon-block"></text> 下载管理
+      </view>
+      <view class='list-option ' hover-class='tap-color'>
+        <text class="iconfont icon-biaodan icon-block"></text> 我的歌单
+      </view>
+    </view>
+
+    <view class='first-option' style='margin-top:20rpx;'>
+      <view class='list-option ' hover-class='tap-color' bindtap='changeColor'>
+        <text class="iconfont icon-yejianmoshi icon-block"></text> 夜间模式
+      </view>
+      <view class='list-option ' hover-class='tap-color'>
+        <text class="iconfont icon-shezhi icon-block"></text> 设置
+      </view>
+      <view class='list-option ' hover-class='tap-color' style='padding:0'>
+        <button class='contact-bt' open-type='contact' session-from="weapp" hover-class='tap-color'>
+          <text class="iconfont icon-pinglun icon-block" style='color:rgb(85, 85, 85)'></text>联系客服
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view class="main-right {{sidle ?'c-state':''}} {{back ?'x-state':''}}">
+    <view class="{{sidle ?'shade':'shade-cunceal'}} " bindtap='touchSidle'></view>
+    <view class="main-title ">
+      <view class='main-more'>
+        <text class="iconfont icon-gengduo" bindtap='touchSidle'></text>
+      </view>
+      <view class='main-tab'>
+        <text class="iconfont icon-yinyue {{current==0 ?'main-tab-is':''}}" bindtap='changeTab' data-current='0'></text>
+        <text class="iconfont icon-play_icon {{current==1 ?'main-tab-is':''}}" bindtap='changeTab' data-current='1'></text>
+        <text class="iconfont icon-vynil {{current==2 ?'main-tab-is':''}}" bindtap='changeTab' data-current='2'></text>
+      </view>
+      <view class='main-search' bindtap='toSearch'>
+        <text class="iconfont icon-suosou"></text>
+      </view>
+    </view>
+    <swiper duration='200' current='{{current}}' bindchange="bindChange" class='main-swiper'>
+      <swiper-item>
+        <view class='item-one'>
+          <view class='item-one-list'>
+            <view hover-class='tap-color' bindtap='toMyMusic' data-lid='27'>
+              <text class="iconfont icon-yinyue item-list-icon"></text> 我的音乐
+            </view>
+            <view hover-class='tap-color'>
+              <text class="iconfont icon-play item-list-icon"></text> 最近播放
+            </view>
+            <view hover-class='tap-color'>
+              <text class="iconfont icon-xiazai item-list-icon"></text> 下载管理
+            </view>
+            <view hover-class='tap-color' bindtap='upload'>
+              <text class="iconfont icon-biaodan item-list-icon"></text> 上传视频
+            </view>
+
+
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view class='second-body' scroll-y='true'>
+
+          <block wx:for="{{video}}">
+            <view class='video-card'>
+              <view class='video-img' style='background:url(http://pak6mqt97.bkt.clouddn.com/video/{{item.video}}?vframe/png/offset?vframe/png/offset/1/w/200/h/200/q/75|imageslim);background-size:cover'>
+                <image src='../../../img/play.png' bindtap='toVideo' data-id='{{item.id}}'></image>
+              </view>
+              <view class='video-title'>{{item.title}}</view>
+              <view class='video-info'>
+                <view class='card-user-info'>
+                  <image src='{{item.userimg}}' style="margin-right:10rpx"></image> {{item.nickname}}
+                </view>
+                <view class='card-user-good'>
+                  <text class="iconfont icon-zan"></text> {{item.good}}
+                </view>
+                <view class='card-user-good' style='margin-left: 30rpx;'>
+                  <text class="iconfont icon-pinglun"></text> {{item.commentNum}}
+                </view>
+                <view class='card-user-more' bindtap='moreSetting'>
+                  <text class="iconfont icon-gengduoxiao"></text>
+                </view>
+
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+
+      </swiper-item>
+      <swiper-item>
+        <scroll-view class='third-all' scroll-y='true'>
+          <view class='third-body'>
+            <swiper class='third-swiper-img' indicator-dots='true' autoplay='true' interval='3000'>
+              <block wx:for="{{swiperImg}}">
+                <swiper-item>
+                  <view class='third-back-img' style='background:url(http://p74fhw4q5.bkt.clouddn.com/back-{{item.url}});background-size:cover'></view>
+                </swiper-item>
+              </block>
+            </swiper>
+          </view>
+
+          <view class='third-main'>
+            <view class='third-list-bt'>
+              <view class='list-bt-box'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='26'>
+                  <text class="iconfont icon-xindian"></text>
+                </view>
+                <view class='bt-box-text'>我最喜欢</view>
+              </view>
+              <view class='list-bt-box'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='23'>
+                  <text class="iconfont icon-rili"></text>
+                </view>
+                <view class='bt-box-text'>每日推荐</view>
+              </view>
+              <view class='list-bt-box'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='28'>
+                  <text class="iconfont icon-yinfu"></text>
+                </view>
+                <view class='bt-box-text'>歌单</view>
+              </view>
+              <view class='list-bt-box'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='25'>
+                  <text class="iconfont icon-paixingbang"></text>
+                </view>
+                <view class='bt-box-text'>排行榜</view>
+              </view>
+
+            </view>
+
+            <view class='album-tips'>热门专辑</view>
+
+            <view class='album-list'>
+              <block wx:for="{{cover}}">
+                <view class='album-box'>
+                  <view class='album-cover' style='background:url(http://p74fhw4q5.bkt.clouddn.com/back-{{item.cover}});background-size:cover' bindtap='toMyMusic' data-lid='{{item.lid}}'>
+                    <text class="iconfont icon-play album-play-num" style='font-size:31rpx;padding-right:1.5rpx;padding-top:5rpx'></text>
+                    <text class='album-play-num'>120万</text>
+                  </view>
+                  <view class='album-title'>{{item.title}}</view>
+                </view>
+              </block>
+
+            </view>
+
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+
+    <view class='cus-audio'>
+      <progress class='progress' percent="{{progress}}" stroke-width='4' activeColor='pink' backgroundColor='#666699' />
+      <view class='audio-player'>
+        <view class='music-cover' bindtap='toPlayer'>
+          <image class='cover-img' src='http://imgcache.qq.com/music/photo/album_300/{{music.img%100}}/300_albumpic_{{music.img}}_0.jpg'></image>
+        </view>
+        <view class='music-info' bindtap="powerDrawer" data-statu="open">
+          <view class='music-info-name'>{{music.name}}</view>
+          <view class='music-info-author'>{{music.author}}</view>
+        </view>
+        <view class='music-play'>
+          <text class="iconfont {{isplay?'icon-zanting':'icon-play'}}" style='font-size: 70rpx;' bindtap='playMusic'></text>
+        </view>
+      </view>
+
+
+    </view>
+
+  </view>
+</view>
+
+
+<!--down-box-->
+<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}">
+</view>
+<!--content-->
+<!--使用animation属性指定需要执行的动画-->
+<view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
+  <view class='playlist-title'>
+    <view class='playlist-title-title'>播放列表</view>
+    <view class='playlist-playstyle' bindtap='changePlayStyle'>
+      <text class="iconfont {{playStyle==1?'icon-xunhuan':''}} {{playStyle==2?'icon-shunxu':''}} {{playStyle==0?'icon-suiji':''}}" style='font-size:50rpx;'></text>
+    </view>
+    <view class='playlist-delete' bindtap='clearPlaylist'>
+      <text class='iconfont icon-shanchu' style='font-size:45rpx;'></text>
+    </view>
+  </view>
+  <!--drawer content-->
+  <view class="drawer_content">
+    <scroll-view class='playlist-content' scroll-y='true'>
+      <block wx:for="{{playlist}}">
+        <view class='search-list' data-mid='{{index}}' bindtap='toPlay' hover-class='tap-color'>
+          <view class='music-list-info' bindtap='cutSong' data-cutid='{{index}}'>
+            <view class='music-list-name'>{{item.name}}</view>
+            <view class='music-list-author'>{{item.author}}</view>
+          </view>
+          <view class='list-more' bindtap='deleteList' data-did='{{index}}'>
+            <text class="iconfont icon-jian" style='font-size: 55rpx;'></text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,35 @@
+<!--pages/index/main/player/player.wxml-->
+<view class='music-info'>
+    <view class='music-name'>{{music.name}}</view>
+    <view class='music-author'>{{music.author}}</view>
+</view>
+
+<view class='music-animation'>
+  <image class="music-img {{isplay?'continue-play':'pause-play'}}" src='http://imgcache.qq.com/music/photo/album_300/{{music.img%100}}/300_albumpic_{{music.img}}_0.jpg' wx:if='{{lyricChange==1}}' bindtap='lyricChangeEvent'></image>
+
+  <scroll-view scroll-y class='music-lyric' wx:if='{{lyricChange==2}}' bindtap='lyricChangeEvent' id='lyricBox' scroll-into-view="{{module.toId(lineNO)}}">
+    <block wx:for='{{lyric}}'>
+      <view class="lyric-word {{index==lineNO-1?'lyric-lineHeight':''}}" id="{{module.getId(index)}}">{{item.c}}</view>
+    </block>
+  </scroll-view>
+</view>
+
+<view class='music-progress'>
+  <text class='time-style'>{{currentTime}}</text>
+  <slider class='time-slider' bindchange='changeMusicTime' block-size='13' value='{{progress}}' max='{{max}}' activeColor='red' block-color='pink'/>
+  <text class='time-style'>{{duration}}</text>
+</view>
+
+<view class='music-controller'>
+ <!-- <text class="iconfont icon-xiazai" style='margin-right: 80rpx;color:white;font-size:50rpx' bindtap='downSong'></text> -->
+
+  <text class="iconfont icon-bofangqishangyiqu" style='margin-top: -7rpx;margin-right: 100rpx;' bindtap='prevMusic'></text>
+
+  <text class="iconfont {{isplay?'icon-zanting2':'icon-bofangqi'}} {{isplay?'up-icon':''}} " bindtap='playMusic'></text>
+
+  <text class="iconfont icon-bofangqixiayiqu" bindtap='nextMusic' style='margin-left: 100rpx;'></text> 
+<!-- 
+  <text class="iconfont icon-biaodan" style='margin-left: 80rpx;color:white;font-size:45rpx' bindtap=''></text> -->
+</view>
+
+<wxs module="module" src='module.wxs'></wxs>

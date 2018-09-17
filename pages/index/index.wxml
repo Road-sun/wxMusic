@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view class='main'>
+  <button wx:if="{{canIUse}}"  class='login-bt' open-type='getUserInfo' plain='true' bindgetuserinfo="bindGetUserInfo">点击进入</button>
+</view>
+

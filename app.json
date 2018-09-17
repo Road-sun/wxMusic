@@ -1,0 +1,22 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/index/main/main",
+    "pages/index/main/user/user",
+    "pages/index/main/search/search",
+    "pages/index/main/mymusic/mymusic",
+    "pages/index/main/video/video",
+    "pages/index/main/player/player",
+    "pages/index/main/upload/upload",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FF0000",
+    "navigationBarTitleText": "天天动听",
+    "navigationBarTextStyle": "white"
+  },
+  "requiredBackgroundModes": [
+    "audio"
+  ]
+}

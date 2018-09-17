@@ -1,0 +1,174 @@
+/* pages/index/main/video/video.wxss */
+page{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center
+}
+
+
+
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.video{
+  width: 98%;
+  height: 35%;
+  margin-top: 10rpx;
+}
+.scroll-body{
+  display: flex;
+  flex-direction:column;
+  width: 100%; 
+  height: 67%;
+}
+
+.title{
+  display: block;
+  line-height: 60rpx;
+  font-size: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+  padding:20rpx;
+  word-wrap:break-word;
+}
+
+.user{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 35rpx;
+  color: gray;
+  height: 80rpx;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+}
+
+.user-img{
+  display: block;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  /* background-color: red; */
+  margin-right: 30rpx;
+}
+
+.time{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: 32rpx;
+  color: grey;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+}
+
+.comment-zan{
+  display: flex;
+  width: 100%;
+  border-bottom: 1rpx solid rgba(240, 240, 240, 0.85);
+  margin-top: 15rpx;
+}
+
+.zan-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 140rpx;
+  width: 0;
+  flex-grow: 1;
+  font-size: 30rpx;
+  color: grey
+}
+
+.publish{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  bottom: 0;
+  height: 8%;
+  padding:0 10rpx;
+  box-sizing: border-box; 
+  border-top:0.05rpx solid rgba(240, 240, 240, 0.85) ;
+  background-color: white
+}
+
+.publish input{
+  display: block;
+  width: 80%;
+  border-bottom: 1rpx solid gainsboro;
+  font-size: 35rpx;
+  padding: 0 5rpx;
+}
+
+.publish-bt{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 100%
+}
+
+.comment-title{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+  background-color: gainsboro;
+  height: 60rpx;
+  color: gray
+}
+
+.comment-card{
+  display: flex;
+  width: 100%;
+}
+
+.comment-user-img{
+  display: flex;
+  justify-content: center;
+  width: 0;
+  flex-grow: 1;
+  height: 100%;
+  padding-top:15rpx;  
+}
+
+.comment-user-info{
+  display: flex;
+  flex-direction: column;
+  width: 0;
+  flex-grow: 5.5;
+  height: 100%;
+  border-bottom: 1rpx solid rgba(240, 240, 240, 0.85);
+  padding: 10rpx 0; 
+}
+
+.comment-user-name{
+  display: flex;
+  width: 100%;
+  line-height: 50rpx;
+  font-size: 31rpx;
+  color: gray;
+}
+
+.comment-time{
+  display: flex;
+  width: 100%;
+  line-height: 40rpx;
+  font-size: 25rpx;
+  color: grey;
+}
+
+.cocomment-content{
+  display: block;
+  line-height: 60rpx;
+  font-size: 35rpx;
+}
+

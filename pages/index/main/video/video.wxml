@@ -1,0 +1,38 @@
+<!--pages/index/main/video/video.wxml-->
+<video class='video' src="http://pak6mqt97.bkt.clouddn.com/video/{{video.video}}" enable-danmu danmu-btn controls danmu-list="{{danmuList}}" bindtimeupdate='getCurrentTime' autoplay='true' page-gesture='true'></video>
+<scroll-view class='scroll-body' scroll-y='true'>
+  <view class='title'>{{video.title}}</view>
+  <view class='user'>
+    <image class='user-img' src='{{video.userimg}}'></image>{{video.nickname}}</view>
+  <view class='time'>发布时间：{{video.subTime}}</view>
+  <view class='comment-zan'>
+    <view class='zan-box'>
+      <text class="iconfont icon-zan" style='font-size:50rpx'></text> {{video.good}}
+    </view>
+    <view class='zan-box'>
+      <text class="iconfont icon-pinglun" style='font-size:40rpx'></text> {{video.commentNum}}
+    </view>
+  </view>
+
+  <view class='comment-title'>精彩评论</view>
+
+  <block wx:for="{{comment}}">
+    <view class='comment-card'>
+      <view class='comment-user-img'>
+        <image class='user-img' style='margin:0' src='{{item.userImg}}'></image>
+      </view>
+      <view class='comment-user-info'>
+        <view class='comment-user-name'>{{item.username}}</view>
+        <view class='comment-time'>{{item.subTime}}</view>
+        <view class='comment-content'>{{item.content}}</view>
+      </view>
+    </view>
+  </block>
+
+
+</scroll-view>
+
+<view class='publish'>
+  <input placeholder='写评论' value='{{value}}' bindinput='getInputVal' bindconfirm='subComment'></input>
+  <view class='publish-bt' bindtap='subComment'>发送</view>
+</view>
