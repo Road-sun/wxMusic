@@ -5,43 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-<<<<<<< Updated upstream
-      video:{},
-      comment:{},
-      value:null,
-      userInfo: {},
-      open: null,
-      currentTime:0,
-      danmuList: []
-=======
     video: {},
     comment: {},
     value: null,
     userInfo: {},
     open: null,
     currentTime: 0,
-    danmuList: [],
-    videoTime:0
-
->>>>>>> Stashed changes
+    danmuList: []
   },
-
 
   //获取视频进度
   getCurrentTime: function(e) {
-    let sTime = e.detail.currentTime
     this.setData({
-      currentTime: sTime
+        currentTime: e.detail.currentTime
     })
   },
 
   //评论时视频的进度
-  getVideoTime:function(){
-      let sTime =this.data.currentTime
-      console.log(sTime)
-      this.setData({
-        videoTime:sTime
-      })
+  getVideoTime: function() {
+    let sTime = this.data.currentTime
+    console.log(sTime)
+    this.setData({
+      videoTime: sTime
+    })
   },
 
   //获取输入的值
@@ -82,14 +68,14 @@ Page({
           let newCommetList = that.data.comment
           newCommetList.unshift(comment)
 
-          let newVideo=that.data.video
+          let newVideo = that.data.video
 
-          newVideo.commentNum = parseInt(that.data.video.commentNum) +1
+          newVideo.commentNum = parseInt(that.data.video.commentNum) + 1
 
           that.setData({
             value: '',
             comment: newCommetList,
-            video:newVideo
+            video: newVideo
           })
         }
       })
