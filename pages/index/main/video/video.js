@@ -11,18 +11,7 @@ Page({
       userInfo: {},
       open: null,
       currentTime:0,
-    danmuList: [
-      {
-        text: '第 1s 出现的弹幕',
-        
-        time: 1
-      },
-      {
-        text: '第 3s 出现的弹幕',
-        
-        time: 3
-      }]
-  
+      danmuList: []
   },
   
 

@@ -14,7 +14,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FF0000",
     "navigationBarTitleText": "天天动听",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#eeeeee"
   },
   "requiredBackgroundModes": [
     "audio"
