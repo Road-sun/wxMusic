@@ -33,6 +33,6 @@
 </scroll-view>
 
 <view class='publish'>
-  <input placeholder='写评论' value='{{value}}' bindinput='getInputVal' bindconfirm='subComment'></input>
+  <input placeholder='写评论' value='{{value}}' bindinput='getInputVal' bindconfirm='subComment' adjust-position bindfocus="getVideoTime"></input>
   <view class='publish-bt' bindtap='subComment'>发送</view>
 </view>

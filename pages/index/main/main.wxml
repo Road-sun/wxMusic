@@ -103,7 +103,7 @@
       <swiper-item>
         <scroll-view class='third-all' scroll-y='true'>
           <view class='third-body'>
-            <swiper class='third-swiper-img' indicator-dots='true' autoplay='true' interval='3000'>
+            <swiper class='third-swiper-img' indicator-dots='true' autoplay='true' interval='3000' circular='true'>
               <block wx:for="{{swiperImg}}">
                 <swiper-item>
                   <view class='third-back-img' style='background:url(http://p74fhw4q5.bkt.clouddn.com/back-{{item.url}});background-size:cover'></view>

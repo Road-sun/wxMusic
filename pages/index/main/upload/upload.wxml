@@ -11,7 +11,7 @@
   
   <view class='video-bt'> 
         <text class='iconfont icon-play_icon' bindtap="getVideo" style='color:red'></text>
-        <text style='margin-left:30rpx'>点击选择上传视频</text>
+        <text style='margin-left:30rpx' bindtap="getVideo">点击选择上传视频</text>
   </view>
   
   <progress percent="{{progress}}" stroke-width='4' activeColor='pink' backgroundColor='#666699' show-info='true'></progress>
