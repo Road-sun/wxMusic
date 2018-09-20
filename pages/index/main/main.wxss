@@ -7,6 +7,11 @@ page {
   height: 100%;
 }
 
+.color-zan::before{
+  color: red
+}
+
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;

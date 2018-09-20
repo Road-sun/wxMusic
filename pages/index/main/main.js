@@ -28,9 +28,7 @@ Page({
         url: '5.jpg'
       }
     ],
-
     video: [],
-
     progress: 0,
     isplay: true,
     isStop: false,
@@ -43,8 +41,10 @@ Page({
       { title: '最佳翻唱', cover: '3.jpg', lid: '36'},
       { title: '民谣说唱', cover: '4.jpg', lid: '32' },
       { title: '我是歌手', cover: '5.jpg', lid: '33' },
-      { title: 'KTV热歌', cover: '2.jpg', lid: '35'},]
+      { title: 'KTV热歌', cover: '2.jpg', lid: '35'},],
+      open: null
   },
+  
 
   //自定义函数
 
@@ -141,6 +141,7 @@ Page({
           newVideo.video=content.video
           newVideo.nickname=content.username
           newVideo.subTime = content.subTime
+          newVideo.islike=0
 
           let newVideoList = that.data.video
           newVideoList[j]=newVideo
@@ -148,6 +149,8 @@ Page({
             video: newVideoList
           })
         }
+        that.getIsLike()
+        
       }
     })
   },
@@ -163,6 +166,69 @@ Page({
       url: 'video/video?video=' + value,
     })
   },
+
+//点赞
+  giveLike:function(e){
+    let id = e.target.dataset.id
+    let videoList=this.data.video
+    let lg = this.data.video.length
+    let ass=0
+    if (videoList[lg - id].islike == 1){
+      ass=0
+      videoList[lg - id].islike = 0
+      --videoList[lg-id].good
+    }else{
+      ass=1
+      videoList[lg - id].islike = 1
+      ++videoList[lg - id].good
+    }
+    this.setData({
+      video:videoList
+    })
+
+    wx.request({
+      url: 'https://www.mosillion.top/TestSSM/comment/giveLike',
+      data:{
+        id: id+'',
+        username: this.data.userInfo.nickName,
+        userImg: this.data.userInfo.avatarUrl,
+        islike:ass,
+        wxNum: this.data.open,
+      },
+      success:function(){
+        console.log("dianzanle")
+      }
+    })
+  },
+
+  //获取点赞状态
+  getIsLike:function(){
+    var that=this
+    wx.request({
+      url: 'https://www.mosillion.top/TestSSM/comment/findIsLike',
+      data: {
+        wxNum: this.data.open,
+      },
+      success: function (res) {
+        console.log(res.data)
+        let newVideoList=that.data.video
+        let lg = that.data.video.length
+        for(var i=0;i<res.data.length;i++){
+          let id = parseInt(res.data[i].videoId)
+          let islike = parseInt(res.data[i].isLike)
+
+          newVideoList[lg-id].islike=islike
+        }
+
+        that.setData({
+          video:newVideoList
+        })
+
+        
+      }
+    })
+  },
+
 
   //播放音乐
   playMusic: function(e) {
@@ -465,6 +531,16 @@ Page({
    */
   onLoad: function(e) {
     var that = this
+
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({
+          open: res.data.openId
+        })
+      },
+    })
+
     // 查看是否授权
     wx.getSetting({
       success: function(res) {
@@ -483,12 +559,15 @@ Page({
       }
     })
 
-    //获取视频列表
-    this.getAllVideo();
+    
 
     //获取播放信息，播放列表流程
     this.getPlayMuscic();
     // console.log(this.data.loopId)
+    
+    //获取视频列表
+    this.getAllVideo();
+
     wx.getStorage({
       key: 'playStyle',
       success: function(res) {
