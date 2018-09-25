@@ -36,15 +36,40 @@ Page({
     playlist: [],
     loopId: null,
     playStyle: 0,
-    cover: [{ title: '云烟成雨', cover:'5.jpg',lid:'29'},
-      { title: '梦想的声音', cover: '2.jpg', lid: '30'},
-      { title: '最佳翻唱', cover: '3.jpg', lid: '36'},
-      { title: '民谣说唱', cover: '4.jpg', lid: '32' },
-      { title: '我是歌手', cover: '5.jpg', lid: '33' },
-      { title: 'KTV热歌', cover: '2.jpg', lid: '35'},],
-      open: null
+    cover: [{
+        title: '云烟成雨',
+        cover: '5.jpg',
+        lid: '29'
+      },
+      {
+        title: '梦想的声音',
+        cover: '2.jpg',
+        lid: '30'
+      },
+      {
+        title: '最佳翻唱',
+        cover: '3.jpg',
+        lid: '36'
+      },
+      {
+        title: '民谣说唱',
+        cover: '4.jpg',
+        lid: '32'
+      },
+      {
+        title: '我是歌手',
+        cover: '5.jpg',
+        lid: '33'
+      },
+      {
+        title: 'KTV热歌',
+        cover: '2.jpg',
+        lid: '35'
+      },
+    ],
+    open: null
   },
-  
+
 
   //自定义函数
 
@@ -100,7 +125,7 @@ Page({
   },
 
   //upload
-  upload:function(){
+  upload: function() {
     wx.navigateTo({
       url: 'upload/upload',
     })
@@ -111,55 +136,23 @@ Page({
     let listid = e.currentTarget.dataset.lid
     // console.log(listid)
     wx.navigateTo({
-      url: 'mymusic/mymusic?listid='+listid,
+      url: 'mymusic/mymusic?listid=' + listid,
     })
   },
 
   //toPlayer
-  toPlayer:function(){
+  toPlayer: function() {
     wx.navigateTo({
       url: 'player/player',
     })
   },
 
-  //获取所有视频
-  getAllVideo:function(){
-    var that=this
-    wx.request({
-      url: 'https://www.mosillion.top/TestSSM/video/getAllVideo',
-      success:function(res){
-        for (let i=res.data.length-1,j=0;i>=0;--i,++j){
-          let content=res.data[i]
-          // console.log(res.data[i])
-
-          let newVideo={};
-          newVideo.id=content.id
-          newVideo.title=content.videoTitle
-          newVideo.userimg=content.userImg
-          newVideo.good=content.goodNum
-          newVideo.commentNum = content.commentNum
-          newVideo.video=content.video
-          newVideo.nickname=content.username
-          newVideo.subTime = content.subTime
-          newVideo.islike=0
-
-          let newVideoList = that.data.video
-          newVideoList[j]=newVideo
-          that.setData({
-            video: newVideoList
-          })
-        }
-        that.getIsLike()
-        
-      }
-    })
-  },
-
   //播放视频
   toVideo: function(e) {
-    let id = e.target.dataset.id
+    // console.log(e)
+    let id = e.currentTarget.dataset.id
     let lg = this.data.video.length
-    let vname = this.data.video[lg-id]
+    let vname = this.data.video[lg - id]
     //将对象转为string
     var value = JSON.stringify(vname)
     wx.navigateTo({
@@ -167,64 +160,98 @@ Page({
     })
   },
 
-//点赞
-  giveLike:function(e){
+
+  //获取所有视频
+  getAllVideo: function() {
+    var that = this
+    wx.request({
+      url: 'https://www.mosillion.top/TestSSM/video/getAllVideo',
+      success: function(res) {
+        for (let i = res.data.length - 1, j = 0; i >= 0; --i, ++j) {
+          let content = res.data[i]
+          // console.log(res.data[i])
+
+          let newVideo = {};
+          newVideo.id = content.id
+          newVideo.title = content.videoTitle
+          newVideo.userimg = content.userImg
+          newVideo.good = content.goodNum
+          newVideo.commentNum = content.commentNum
+          newVideo.video = content.video
+          newVideo.nickname = content.username
+          newVideo.subTime = content.subTime
+          newVideo.islike = 0
+
+          let newVideoList = that.data.video
+          newVideoList[j] = newVideo
+          that.setData({
+            video: newVideoList
+          })
+        }
+        that.getIsLike()
+
+      }
+    })
+  },
+
+  //点赞
+  giveLike: function(e) {
     let id = e.target.dataset.id
-    let videoList=this.data.video
+    let videoList = this.data.video
     let lg = this.data.video.length
-    let ass=0
-    if (videoList[lg - id].islike == 1){
-      ass=0
+    let ass = 0
+    if (videoList[lg - id].islike == 1) {
+      ass = 0
       videoList[lg - id].islike = 0
-      --videoList[lg-id].good
-    }else{
-      ass=1
+        --videoList[lg - id].good
+    } else {
+      ass = 1
       videoList[lg - id].islike = 1
-      ++videoList[lg - id].good
+        ++videoList[lg - id].good
     }
     this.setData({
-      video:videoList
+      video: videoList
     })
 
     wx.request({
       url: 'https://www.mosillion.top/TestSSM/comment/giveLike',
-      data:{
-        id: id+'',
+      data: {
+        id: id + '',
         username: this.data.userInfo.nickName,
         userImg: this.data.userInfo.avatarUrl,
-        islike:ass,
+        islike: ass,
         wxNum: this.data.open,
       },
-      success:function(){
-        console.log("dianzanle")
+      success: function() {
+        // console.log("dianzanle")
       }
     })
   },
 
   //获取点赞状态
-  getIsLike:function(){
-    var that=this
+  getIsLike: function() {
+    var that = this
     wx.request({
       url: 'https://www.mosillion.top/TestSSM/comment/findIsLike',
       data: {
         wxNum: this.data.open,
       },
-      success: function (res) {
-        console.log(res.data)
-        let newVideoList=that.data.video
+      success: function(res) {
+        // console.log(res.data)
+        let newVideoList = that.data.video
         let lg = that.data.video.length
-        for(var i=0;i<res.data.length;i++){
+        for (var i = 0; i < res.data.length; i++) {
           let id = parseInt(res.data[i].videoId)
           let islike = parseInt(res.data[i].isLike)
 
-          newVideoList[lg-id].islike=islike
+          newVideoList[lg - id].islike = islike
         }
 
         that.setData({
-          video:newVideoList
+          video: newVideoList
         })
 
-        
+
       }
     })
   },
@@ -385,9 +412,9 @@ Page({
   },
 
   //随机播放
-  randomPlay:function(){
-    let list=this.data.playlist
-    let len=list.length
+  randomPlay: function() {
+    let list = this.data.playlist
+    let len = list.length
     let rnum = Math.floor(Math.random() * len);
     // console.log(rnum);
     this.setData({
@@ -496,17 +523,17 @@ Page({
   },
 
   //判断是否正在播放
-  isOrNorPlay:function(){
-    if (backgroundAudioManager.paused){
-        this.setData({
-          isplay:false
-        })
-        console.log('aaa')
-    }else{
-        this.setData({
-          isplay: true
-        })
-        console.log('bbb')
+  isOrNorPlay: function() {
+    if (backgroundAudioManager.paused) {
+      this.setData({
+        isplay: false
+      })
+      console.log('aaa')
+    } else {
+      this.setData({
+        isplay: true
+      })
+      console.log('bbb')
     }
   },
 
@@ -534,7 +561,7 @@ Page({
 
     wx.getStorage({
       key: 'user',
-      success: function (res) {
+      success: function(res) {
         that.setData({
           open: res.data.openId
         })
@@ -547,7 +574,7 @@ Page({
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
-            withCredentials:true,
+            withCredentials: true,
             success: function(res) {
               that.setData({
                 userInfo: res.userInfo,
@@ -559,12 +586,12 @@ Page({
       }
     })
 
-    
+
 
     //获取播放信息，播放列表流程
     this.getPlayMuscic();
     // console.log(this.data.loopId)
-    
+
     //获取视频列表
     this.getAllVideo();
 
@@ -590,6 +617,26 @@ Page({
     backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.music.img % 100 + '/300_albumpic_' + this.data.music.img + '_0.jpg'
     backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.music.url + '.m4a?fromtag=0&guid=126548448'
 
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+    //获取视频列表
+    this.getAllVideo();
+
+    this.getPlayMuscic();
+    this.isOrNorPlay();
+
+    //背景音频播放进度更新事件
+    backgroundAudioManager.onTimeUpdate(() => {
+      this.setData({
+        progress: ((backgroundAudioManager.currentTime / backgroundAudioManager.duration) * 100).toFixed(7)
+      })
+
+    })
 
     //播放结束
     backgroundAudioManager.onEnded(() => {
@@ -610,7 +657,7 @@ Page({
         })
       } else if (this.data.playStyle == 1) {
         this.loopSingle()
-      } else if (this.data.playStyle == 0){
+      } else if (this.data.playStyle == 0) {
         this.randomPlay()
         let loopId = this.data.loopId
         wx.setStorage({
@@ -712,29 +759,6 @@ Page({
 
     })
 
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-    //获取视频列表
-    this.getAllVideo();
-
-    this.getPlayMuscic();
-    this.isOrNorPlay();
-
-    //背景音频播放进度更新事件
-    backgroundAudioManager.onTimeUpdate(() => {
-      this.setData({
-        progress: ((backgroundAudioManager.currentTime / backgroundAudioManager.duration) * 100).toFixed(7)
-      })
-      
-      
-
-    })
 
 
     //监听播放暂停事件
@@ -750,7 +774,7 @@ Page({
         isplay: true
       })
     })
-    
+
     //播放停止
     backgroundAudioManager.onStop(() => {
       this.setData({
@@ -784,7 +808,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    
+
   },
 
   /**
@@ -851,5 +875,5 @@ Page({
       });
     }
   },
-  
+
 })

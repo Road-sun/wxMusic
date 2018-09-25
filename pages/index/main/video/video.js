@@ -24,7 +24,7 @@ Page({
   //评论时视频的进度
   getVideoTime: function() {
     let sTime = this.data.currentTime
-    console.log(sTime)
+    // console.log(sTime)
     this.setData({
       videoTime: sTime
     })

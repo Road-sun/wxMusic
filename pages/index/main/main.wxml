@@ -77,7 +77,7 @@
           <block wx:for="{{video}}">
             <view class='video-card'>
               <view class='video-img' style='background:url(http://pak6mqt97.bkt.clouddn.com/video/{{item.video}}?vframe/png/offset?vframe/png/offset/1/w/200/h/200/q/75|imageslim);background-size:cover' bindtap='toVideo' data-id='{{item.id}}'>
-                <image src='../../../img/play.png' bindtap='toVideo' data-id='{{item.id}}' ></image>
+                <image src='../../../img/play.png'></image>
               </view>
               <view class='video-title'>{{item.title}}</view>
               <view class='video-info'>
