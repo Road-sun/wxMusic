@@ -67,7 +67,8 @@ Page({
         lid: '35'
       },
     ],
-    open: null
+    open: null,
+    imgLazy: [true, true],
   },
 
 
@@ -140,6 +141,13 @@ Page({
     })
   },
 
+  //我的音乐列表
+  toMyVideo: function () {
+    wx.navigateTo({
+      url: 'myvideo/myvideo',
+    })
+  },
+
   //toPlayer
   toPlayer: function() {
     wx.navigateTo({
@@ -152,12 +160,30 @@ Page({
     // console.log(e)
     let id = e.currentTarget.dataset.id
     let lg = this.data.video.length
-    let vname = this.data.video[lg - id]
+    let vname = null
+    for (var i = 0; i < lg;i++){
+      if (this.data.video[i].id==id){
+        vname = this.data.video[i]
+      }
+    }
     //将对象转为string
     var value = JSON.stringify(vname)
     wx.navigateTo({
       url: 'video/video?video=' + value,
     })
+  },
+  
+  //图片懒加载
+  getScroll: function (res) {
+    let that=this
+    // console.log(res.detail.scrollTop);
+    let count = parseInt(res.detail.scrollTop/260);
+    // console.log(count);
+    that.data.imgLazy[count+2]=true;
+    that.setData({
+      imgLazy: that.data.imgLazy
+    })
+
   },
 
 
@@ -180,6 +206,7 @@ Page({
           newVideo.video = content.video
           newVideo.nickname = content.username
           newVideo.subTime = content.subTime
+          newVideo.wxNum=content.wxNum
           newVideo.islike = 0
 
           let newVideoList = that.data.video
@@ -239,12 +266,18 @@ Page({
       success: function(res) {
         // console.log(res.data)
         let newVideoList = that.data.video
+        // console.log(newVideoList)
         let lg = that.data.video.length
+
         for (var i = 0; i < res.data.length; i++) {
           let id = parseInt(res.data[i].videoId)
           let islike = parseInt(res.data[i].isLike)
-
-          newVideoList[lg - id].islike = islike
+          for (var j = 0; j < lg; j++) {
+            if (newVideoList[j].id == id) {
+              newVideoList[j].islike = islike
+              break
+            }
+          }
         }
 
         that.setData({
@@ -824,6 +857,8 @@ Page({
   onShareAppMessage: function() {
 
   },
+
+  
 
   //down-box
   powerDrawer: function(e) {

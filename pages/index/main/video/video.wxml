@@ -20,6 +20,7 @@
     <view class='comment-card'>
       <view class='comment-user-img'>
         <image class='user-img' style='margin:0' src='{{item.userImg}}'></image>
+        <view class='user-status' wx:if="{{video.wxNum==item.wxNum}}">作者</view>
       </view>
       <view class='comment-user-info'>
         <view class='comment-user-name'>{{item.username}}</view>

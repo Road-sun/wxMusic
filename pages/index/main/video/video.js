@@ -108,6 +108,7 @@ Page({
           comment.subTime = content.commentTime
           comment.userImg = content.userImg
           comment.content = content.commentContent
+          comment.wxNum=content.wxNum
           commentList[j] = comment
 
           let danmu = {}

@@ -1,0 +1,26 @@
+<!--pages/index/main/myvideo/myvideo.wxml-->
+<scroll-view class='second-body' scroll-y='true' bindscroll='getScroll'>
+      <block wx:for="{{video}}">
+            <view class='video-card'>
+              <view class='video-img' style="background:url(http://pak6mqt97.bkt.clouddn.com/video/{{imgLazy[index] ? item.video:'zzz'}}?vframe/png/offset?vframe/png/offset/1/w/200/h/200/q/75|imageslim);background-size:cover" bindtap='toVideo' data-id='{{item.id}}'>
+                <image src='../../../../img/play.png'></image>
+              </view>
+              <view class='video-title'>{{item.title}}</view>
+              <view class='video-info'>
+                <view class='card-user-info'>
+                  <image src='{{item.userimg}}' style="margin-right:10rpx"></image> {{item.nickname}}
+                </view>
+                <view class='card-user-good'>
+                  <text class="iconfont icon-zan {{item.islike==1?'color-zan ':''}}" bindtap='giveLike' data-id='{{item.id}}'></text> {{item.good}}
+                </view>
+                <view class='card-user-good' style='margin-left: 30rpx;'>
+                  <text class="iconfont icon-pinglun " bindtap='toVideo' data-id='{{item.id}}'></text> {{item.commentNum}}
+                </view>
+                <view class='card-user-more' bindtap='moreSetting'>
+                  <text class="iconfont icon-gengduoxiao"></text>
+                </view>
+
+              </view>
+            </view>
+          </block>
+</scroll-view>

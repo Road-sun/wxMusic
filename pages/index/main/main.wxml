@@ -10,7 +10,7 @@
         <text class="iconfont icon-youxiang icon-block"></text> 我的消息
       </view>
       <view class='list-option' hover-class='tap-color'>
-        <text class="iconfont icon-play icon-block"></text> 最近播放
+        <text class="iconfont icon-play icon-block"></text> 我的视频
       </view>
       <view class='list-option' hover-class='tap-color'>
         <text class="iconfont icon-xiazai icon-block"></text> 下载管理
@@ -57,8 +57,8 @@
             <view hover-class='tap-color' bindtap='toMyMusic' data-lid='27'>
               <text class="iconfont icon-yinyue item-list-icon"></text> 我的音乐
             </view>
-            <view hover-class='tap-color'>
-              <text class="iconfont icon-play item-list-icon"></text> 最近播放
+            <view hover-class='tap-color' bindtap='toMyVideo'>
+              <text class="iconfont icon-play item-list-icon"  ></text> 我的视频
             </view>
             <view hover-class='tap-color'>
               <text class="iconfont icon-xiazai item-list-icon"></text> 下载管理
@@ -72,11 +72,11 @@
         </view>
       </swiper-item>
       <swiper-item>
-        <scroll-view class='second-body' scroll-y='true'>
+        <scroll-view class='second-body' scroll-y='true' bindscroll="getScroll">
 
           <block wx:for="{{video}}">
             <view class='video-card'>
-              <view class='video-img' style='background:url(http://pak6mqt97.bkt.clouddn.com/video/{{item.video}}?vframe/png/offset?vframe/png/offset/1/w/200/h/200/q/75|imageslim);background-size:cover' bindtap='toVideo' data-id='{{item.id}}'>
+              <view class='video-img' style="background:url(http://pak6mqt97.bkt.clouddn.com/video/{{imgLazy[index] ? item.video:'zzz'}}?vframe/png/offset?vframe/png/offset/1/w/200/h/200/q/75|imageslim);background-size:cover" bindtap='toVideo' data-id='{{item.id}}'>
                 <image src='../../../img/play.png'></image>
               </view>
               <view class='video-title'>{{item.title}}</view>

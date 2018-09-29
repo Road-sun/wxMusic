@@ -5,6 +5,7 @@
     "pages/index/main/user/user",
     "pages/index/main/search/search",
     "pages/index/main/mymusic/mymusic",
+    "pages/index/main/myvideo/myvideo",
     "pages/index/main/video/video",
     "pages/index/main/player/player",
     "pages/index/main/upload/upload",

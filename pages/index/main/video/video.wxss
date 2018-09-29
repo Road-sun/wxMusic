@@ -133,11 +133,21 @@ page{
 
 .comment-user-img{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 0;
   flex-grow: 1;
   height: 100%;
   padding-top:15rpx;  
+}
+
+.user-status{
+  margin-top:8rpx; 
+  background-color: pink;
+  border-radius: 5px;
+  font-size: 24rpx;
+  color: white;
+  padding: 4rpx 7rpx;
 }
 
 .comment-user-info{
@@ -153,22 +163,23 @@ page{
 .comment-user-name{
   display: flex;
   width: 100%;
-  line-height: 50rpx;
-  font-size: 31rpx;
+  line-height: 45rpx;
+  font-size: 29rpx;
   color: gray;
 }
 
 .comment-time{
   display: flex;
   width: 100%;
-  line-height: 40rpx;
+  line-height: 30rpx;
   font-size: 25rpx;
   color: grey;
 }
 
-.cocomment-content{
+.comment-content{
+  margin-top:8rpx; 
   display: block;
-  line-height: 60rpx;
-  font-size: 35rpx;
+  line-height: 40rpx;
+  font-size: 32rpx;
 }
 
