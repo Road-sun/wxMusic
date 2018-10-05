@@ -147,7 +147,7 @@ page{
   border-radius: 5px;
   font-size: 24rpx;
   color: white;
-  padding: 4rpx 7rpx;
+  padding: 2rpx 8rpx;
 }
 
 .comment-user-info{

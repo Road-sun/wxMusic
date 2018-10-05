@@ -12,7 +12,7 @@ Page({
   },
 
   //播放视频
-  toVideo: function (e) {
+  toVideo: function(e) {
     // console.log(e)
     let id = e.currentTarget.dataset.id
     let lg = this.data.video.length
@@ -30,7 +30,7 @@ Page({
   },
 
   //图片懒加载
-  getScroll: function (res) {
+  getScroll: function(res) {
     let that = this
     // console.log(res)
     // console.log(res.detail.scrollTop);
@@ -45,14 +45,14 @@ Page({
 
 
   //获取所有视频
-  getAllVideo: function () {
+  getAllVideo: function() {
     var that = this
     wx.request({
       url: 'https://www.mosillion.top/TestSSM/video/getPerVideo',
-      data:{
-        wxNum:that.data.open
+      data: {
+        wxNum: that.data.open
       },
-      success: function (res) {
+      success: function(res) {
         for (let i = res.data.length - 1, j = 0; i >= 0; --i, ++j) {
           let content = res.data[i]
           // console.log(res.data[i])
@@ -82,23 +82,30 @@ Page({
   },
 
   //点赞
-  giveLike: function (e) {
+  giveLike: function(e) {
     let id = e.target.dataset.id
     let videoList = this.data.video
     let lg = this.data.video.length
     let ass = 0
-    if (videoList[lg - id].islike == 1) {
-      ass = 0
-      videoList[lg - id].islike = 0
-      --videoList[lg - id].good
-    } else {
-      ass = 1
-      videoList[lg - id].islike = 1
-      ++videoList[lg - id].good
+    for (var p = 0; p < lg; ++p) {
+      if (videoList[p].id == id) {
+        if (videoList[p].islike == 1) {
+          ass = 0
+          videoList[p].islike = 0
+            --videoList[p].good
+        } else {
+          ass = 1
+          videoList[p].islike = 1
+            ++videoList[p].good
+        }
+        this.setData({
+          video: videoList
+        })
+
+        break
+      }
+
     }
-    this.setData({
-      video: videoList
-    })
 
     wx.request({
       url: 'https://www.mosillion.top/TestSSM/comment/giveLike',
@@ -109,35 +116,35 @@ Page({
         islike: ass,
         wxNum: this.data.open,
       },
-      success: function () {
+      success: function() {
         // console.log("dianzanle")
       }
     })
   },
 
   //获取点赞状态
-  getIsLike: function () {
+  getIsLike: function() {
     var that = this
     wx.request({
       url: 'https://www.mosillion.top/TestSSM/comment/findIsLike',
       data: {
         wxNum: this.data.open,
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(res.data)
         let newVideoList = that.data.video
         // console.log(newVideoList)
         let lg = that.data.video.length
-        
+
         for (var i = 0; i < res.data.length; i++) {
           let id = parseInt(res.data[i].videoId)
           let islike = parseInt(res.data[i].isLike)
-          for(var j=0;j<lg;j++){
-            if(newVideoList[j].id==id){
-              newVideoList[j].islike=islike
+          for (var j = 0; j < lg; j++) {
+            if (newVideoList[j].id == id) {
+              newVideoList[j].islike = islike
               break
             }
-          } 
+          }
         }
 
         that.setData({
@@ -155,17 +162,17 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
 
     // 查看是否授权
     wx.getSetting({
-      success: function (res) {
+      success: function(res) {
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
             withCredentials: true,
-            success: function (res) {
+            success: function(res) {
               that.setData({
                 userInfo: res.userInfo,
               })
@@ -179,7 +186,7 @@ Page({
 
     wx.getStorage({
       key: 'user',
-      success: function (res) {
+      success: function(res) {
         that.setData({
           open: res.data.openId
         })
@@ -188,58 +195,58 @@ Page({
       },
     })
 
-   
 
 
-    
+
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

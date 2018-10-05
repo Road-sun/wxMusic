@@ -142,7 +142,7 @@ Page({
   },
 
   //我的音乐列表
-  toMyVideo: function () {
+  toMyVideo: function() {
     wx.navigateTo({
       url: 'myvideo/myvideo',
     })
@@ -161,8 +161,8 @@ Page({
     let id = e.currentTarget.dataset.id
     let lg = this.data.video.length
     let vname = null
-    for (var i = 0; i < lg;i++){
-      if (this.data.video[i].id==id){
+    for (var i = 0; i < lg; i++) {
+      if (this.data.video[i].id == id) {
         vname = this.data.video[i]
       }
     }
@@ -172,14 +172,14 @@ Page({
       url: 'video/video?video=' + value,
     })
   },
-  
+
   //图片懒加载
-  getScroll: function (res) {
-    let that=this
+  getScroll: function(res) {
+    let that = this
     // console.log(res.detail.scrollTop);
-    let count = parseInt(res.detail.scrollTop/260);
+    let count = parseInt(res.detail.scrollTop / 260);
     // console.log(count);
-    that.data.imgLazy[count+2]=true;
+    that.data.imgLazy[count + 2] = true;
     that.setData({
       imgLazy: that.data.imgLazy
     })
@@ -206,7 +206,7 @@ Page({
           newVideo.video = content.video
           newVideo.nickname = content.username
           newVideo.subTime = content.subTime
-          newVideo.wxNum=content.wxNum
+          newVideo.wxNum = content.wxNum
           newVideo.islike = 0
 
           let newVideoList = that.data.video
@@ -227,18 +227,25 @@ Page({
     let videoList = this.data.video
     let lg = this.data.video.length
     let ass = 0
-    if (videoList[lg - id].islike == 1) {
-      ass = 0
-      videoList[lg - id].islike = 0
-        --videoList[lg - id].good
-    } else {
-      ass = 1
-      videoList[lg - id].islike = 1
-        ++videoList[lg - id].good
+    for (var p = 0; p < lg; ++p) {
+      if (videoList[p].id == id) {
+        if (videoList[p].islike == 1) {
+          ass = 0
+          videoList[p].islike = 0
+            --videoList[p].good
+        } else {
+          ass = 1
+          videoList[p].islike = 1
+            ++videoList[p].good
+        }
+        this.setData({
+          video: videoList
+        })
+
+        break
+      }
+
     }
-    this.setData({
-      video: videoList
-    })
 
     wx.request({
       url: 'https://www.mosillion.top/TestSSM/comment/giveLike',
@@ -858,7 +865,7 @@ Page({
 
   },
 
-  
+
 
   //down-box
   powerDrawer: function(e) {
