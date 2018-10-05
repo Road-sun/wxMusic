@@ -15,6 +15,22 @@ Page({
     allMusicNum:null
   },
 
+  getHostSearchWord:function(){
+    var that=this
+      wx.request({
+        url: 'https://www.mosillion.top/TestSSM/hostSearch/getHostWord',
+        success:function(res){
+          console.log(res.data)
+          let host=res.data.host
+          if(host!=[]){
+            that.setData({
+              reconmmend: host
+            })
+          }   
+        }
+      })
+  },
+
   formatterDateTime:function() {
     var date = new Date()
     var month = date.getMonth() + 1
@@ -54,6 +70,17 @@ Page({
       key: "music",
       data: valmusic
     })
+
+    wx.request({
+      url: 'https://www.mosillion.top/TestSSM/hostSearch/addHostWord',
+      data:{
+        value:music.name
+      },
+      success: function (res) {
+
+      }
+    })
+
   },
 
   //搜索
@@ -224,7 +251,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.getHostSearchWord()
   },
 
   /**
