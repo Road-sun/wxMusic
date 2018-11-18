@@ -36,39 +36,10 @@ Page({
     playlist: [],
     loopId: null,
     playStyle: 0,
-    cover: [{
-        title: '云烟成雨',
-        cover: '5.jpg',
-        lid: '29'
-      },
-      {
-        title: '梦想的声音',
-        cover: '2.jpg',
-        lid: '30'
-      },
-      {
-        title: '最佳翻唱',
-        cover: '3.jpg',
-        lid: '36'
-      },
-      {
-        title: '民谣说唱',
-        cover: '4.jpg',
-        lid: '32'
-      },
-      {
-        title: '我是歌手',
-        cover: '5.jpg',
-        lid: '33'
-      },
-      {
-        title: 'KTV热歌',
-        cover: '2.jpg',
-        lid: '35'
-      },
-    ],
+    cover: [],
     open: null,
     imgLazy: [true, true],
+    page:2,
   },
 
 
@@ -134,10 +105,9 @@ Page({
 
   //我的音乐列表
   toMyMusic: function(e) {
-    let listid = e.currentTarget.dataset.lid
-    // console.log(listid)
+    let id = e.currentTarget.dataset.lid
     wx.navigateTo({
-      url: 'mymusic/mymusic?listid=' + listid,
+      url: 'mymusic/mymusic?lid='+id 
     })
   },
 
@@ -308,8 +278,8 @@ Page({
         })
         backgroundAudioManager.title = this.data.music.name
         backgroundAudioManager.singer = this.data.music.author
-        backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.music.img % 100 + '/300_albumpic_' + this.data.music.img + '_0.jpg'
-        backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.music.url + '.m4a?fromtag=0&guid=126548448'
+        backgroundAudioManager.coverImgUr = this.data.music.img 
+        backgroundAudioManager.src =  this.data.music.url 
       } else {
         backgroundAudioManager.play()
         this.setData({
@@ -462,8 +432,8 @@ Page({
     })
     backgroundAudioManager.title = this.data.playlist[rnum].name
     backgroundAudioManager.singer = this.data.playlist[rnum].author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[rnum].img % 100 + '/300_albumpic_' + this.data.playlist[rnum].img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[rnum].url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr =  this.data.playlist[rnum].img 
+    backgroundAudioManager.src =this.data.playlist[rnum].url 
 
     this.judgeLoodId()
   },
@@ -485,8 +455,8 @@ Page({
     })
     backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
     backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[this.data.loopId].img % 100 + '/300_albumpic_' + this.data.playlist[this.data.loopId].img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[this.data.loopId].url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr =  this.data.playlist[this.data.loopId].img 
+    backgroundAudioManager.src = this.data.playlist[this.data.loopId].url 
 
   },
 
@@ -494,8 +464,8 @@ Page({
   loopSingle: function() {
     backgroundAudioManager.title = this.data.music.name
     backgroundAudioManager.singer = this.data.music.author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.music.img % 100 + '/300_albumpic_' + this.data.music.img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.music.url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr =  this.data.music.img 
+    backgroundAudioManager.src = this.data.music.url
   },
 
   //删除播放列表中的某首歌
@@ -558,8 +528,8 @@ Page({
     this.judgeLoodId()
     backgroundAudioManager.title = cutmusic.name
     backgroundAudioManager.singer = cutmusic.author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + cutmusic.img % 100 + '/300_albumpic_' + cutmusic.img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + cutmusic.url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr =  cutmusic.img 
+    backgroundAudioManager.src =cutmusic.url 
   },
 
   //判断是否正在播放
@@ -577,6 +547,42 @@ Page({
     }
   },
 
+  //获取歌单
+  getHostMusicList:function(){
+    let that= this
+    wx.request({
+      url: 'https://api.bzqll.com/music/tencent/hotSongList',
+      data:{
+        key:579621905,
+        categoryId:10000000,
+        sortId:1,
+        limit:14
+      },
+      success:function(res){
+        
+        let coverArr=[];
+        
+        let list=res.data.data
+        // console.log(list)
+        for(let i=0;i<list.length;i++){
+          let cover = {};
+          cover.id=list[i].id
+          cover.name = list[i].name
+          cover.creator = list[i].creator
+          cover.createTime = list[i].createTime
+          cover.pic = list[i].pic
+          cover.playCount = list[i].playCount 
+          coverArr[i]=cover
+        }
+
+        that.setData({
+          cover:coverArr
+        })
+
+      }
+    })
+  },
+  
   //更多设置（弹出底部框体）
   moreSetting: function() {
     wx.showActionSheet({
@@ -626,7 +632,7 @@ Page({
       }
     })
 
-
+  
 
     //获取播放信息，播放列表流程
     this.getPlayMuscic();
@@ -635,6 +641,10 @@ Page({
     //获取视频列表
     this.getAllVideo();
 
+    //获取热门歌单
+    this.getHostMusicList();
+
+    //获取播放顺序
     wx.getStorage({
       key: 'playStyle',
       success: function(res) {
@@ -654,8 +664,8 @@ Page({
     //进入小程序默认开始播放
     backgroundAudioManager.title = this.data.music.name
     backgroundAudioManager.singer = this.data.music.author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.music.img % 100 + '/300_albumpic_' + this.data.music.img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.music.url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr = this.data.music.img
+    backgroundAudioManager.src =  this.data.music.url
 
   },
 
@@ -761,9 +771,8 @@ Page({
       })
       backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
       backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
-      backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[this.data.loopId].img % 100 + '/300_albumpic_' + this.data.playlist[this.data.loopId].img + '_0.jpg'
-      backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[this.data.loopId].url + '.m4a?fromtag=0&guid=126548448'
-
+      backgroundAudioManager.coverImgUr =  this.data.playlis[this.data.loopId].img 
+      backgroundAudioManager.src = this.data.playlist[this.data.loopId].url 
       let loopId1 = this.data.loopId
       wx.setStorage({
         key: 'music',
@@ -788,8 +797,8 @@ Page({
       })
       backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
       backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
-      backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[this.data.loopId].img % 100 + '/300_albumpic_' + this.data.playlist[this.data.loopId].img + '_0.jpg'
-      backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[this.data.loopId].url + '.m4a?fromtag=0&guid=126548448'
+      backgroundAudioManager.coverImgUr = this.data.playlist[this.data.loopId]
+      backgroundAudioManager.src = this.data.playlist[this.data.loopId].url 
 
       let loopId2 = this.data.loopId
       wx.setStorage({

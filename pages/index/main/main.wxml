@@ -54,7 +54,7 @@
       <swiper-item>
         <view class='item-one'>
           <view class='item-one-list'>
-            <view hover-class='tap-color' bindtap='toMyMusic' data-lid='27'>
+            <view hover-class='tap-color' bindtap='toMyMusic' data-lid='5109263873'>
               <text class="iconfont icon-yinyue item-list-icon"></text> 我的音乐
             </view>
             <view hover-class='tap-color' bindtap='toMyVideo'>
@@ -76,7 +76,7 @@
 
           <block wx:for="{{video}}">
             <view class='video-card'>
-              <view class='video-img' style="background:url(http://pak6mqt97.bkt.clouddn.com/video/{{imgLazy[index] ? item.video:'zzz'}}?vframe/png/offset?vframe/png/offset/1/w/310/h/170/q/75|imageslim);background-size:cover" bindtap='toVideo' data-id='{{item.id}}'>
+              <view class='video-img' style="background:url(http://qiniu.mosillion.top/video/{{imgLazy[index] ? item.video:'zzz'}}?vframe/png/offset?vframe/png/offset/1/w/310/h/170/q/75|imageslim);background-size:cover" bindtap='toVideo' data-id='{{item.id}}'>
                 <image src='../../../img/play.png'></image>
               </view>
               <view class='video-title'>{{item.title}}</view>
@@ -115,25 +115,25 @@
           <view class='third-main'>
             <view class='third-list-bt'>
               <view class='list-bt-box'>
-                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='26'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='5109267378'>
                   <text class="iconfont icon-xindian"></text>
                 </view>
                 <view class='bt-box-text'>我最喜欢</view>
               </view>
               <view class='list-bt-box'>
-                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='23'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='5109267378'>
                   <text class="iconfont icon-rili"></text>
                 </view>
                 <view class='bt-box-text'>每日推荐</view>
               </view>
               <view class='list-bt-box'>
-                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='28'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='5360564365'>
                   <text class="iconfont icon-yinfu"></text>
                 </view>
                 <view class='bt-box-text'>歌单</view>
               </view>
               <view class='list-bt-box'>
-                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='25'>
+                <view class='bt-box-icon' bindtap='toMyMusic' data-lid='5240783015'>
                   <text class="iconfont icon-paixingbang"></text>
                 </view>
                 <view class='bt-box-text'>排行榜</view>
@@ -146,11 +146,11 @@
             <view class='album-list'>
               <block wx:for="{{cover}}">
                 <view class='album-box'>
-                  <view class='album-cover' style='background:url(http://p74fhw4q5.bkt.clouddn.com/back-{{item.cover}});background-size:cover' bindtap='toMyMusic' data-lid='{{item.lid}}'>
+                  <view class='album-cover' style='background:url({{item.pic}});background-size:cover' bindtap='toMyMusic' data-lid='{{item.id}}'>
                     <text class="iconfont icon-play album-play-num" style='font-size:31rpx;padding-right:1.5rpx;padding-top:5rpx'></text>
-                    <text class='album-play-num'>120万</text>
+                    <text class='album-play-num'>{{item.playCount}}</text>
                   </view>
-                  <view class='album-title'>{{item.title}}</view>
+                  <view class='album-title'>{{item.name}}</view>
                 </view>
               </block>
 
@@ -165,7 +165,7 @@
       <progress class='progress' percent="{{progress}}" stroke-width='4' activeColor='pink' backgroundColor='#666699' />
       <view class='audio-player'>
         <view class='music-cover' bindtap='toPlayer'>
-          <image class='cover-img' src='http://imgcache.qq.com/music/photo/album_300/{{music.img%100}}/300_albumpic_{{music.img}}_0.jpg'></image>
+          <image class='cover-img' src='{{music.img}}'></image>
         </view>
         <view class='music-info' bindtap="powerDrawer" data-statu="open">
           <view class='music-info-name'>{{music.name}}</view>

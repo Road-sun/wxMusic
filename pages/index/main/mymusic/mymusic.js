@@ -7,9 +7,9 @@ Page({
    */
   data: {
     allMusic: [],
-
+    page:2
   },
-  //
+  //播放音乐
   toPlay: function (e) {
     let id = e.currentTarget.dataset.mid
     let music = this.data.allMusic[id]
@@ -20,41 +20,48 @@ Page({
                                                                                                        
     backgroundAudioManager.title = music.name
     backgroundAudioManager.singer = music.author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + music.img % 100 + '/300_albumpic_' + music.img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + music.url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr = music.img
+    backgroundAudioManager.src =music.url 
 
     wx.setStorage({
       key: "music",
       data: valmusic
     })
   },
+
+  //播放mv
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(e) {
-    let listid=e.listid
+    let listid=e.lid
     // console.log(listid)
     wx.showLoading({
       title: '加载中',
     })
     var that=this
     wx.request({
-      url: 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&tpl=3&page=detail&type=top&topid='+listid, //仅为示例，并非真实的接口地址
+      url: 'https://api.bzqll.com/music/tencent/songList?key=579621905',
       data: {
+        id:listid,
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        // console.log(res)
         let allMusic=[]
-        let list = res.data.songlist
+        let list = res.data.data.songs
         for (let i = 0; i<list.length;i++)
         {
             let music = {}
-            music.name=list[i].data.songname
-            music.author = list[i].data.singer[0].name
-            music.url = list[i].data.songmid
-            music.img = list[i].data.albumid
+            music.name=list[i].name
+            music.author = list[i].singer
+            music.url = list[i].url
+            music.img = list[i].pic
+            music.lrc = list[i].lrc
+            music.id=list[i].id
             allMusic[i]=music
         }
         that.setData({

@@ -31,27 +31,7 @@ Page({
       })
   },
 
-  formatterDateTime:function() {
-    var date = new Date()
-    var month = date.getMonth() + 1
-        var datetime = date.getFullYear()
-      + ""// "年"
-      + (month >= 10 ? month : "0" + month)
-      + ""// "月"
-      + (date.getDate() < 10 ? "0" + date.getDate() : date
-        .getDate())
-      + ""
-      + (date.getHours() < 10 ? "0" + date.getHours() : date
-        .getHours())
-      + ""
-      + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date
-        .getMinutes())
-      + ""
-      + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date
-        .getSeconds());
-    return datetime;
-  },
-
+  
   //点击播放
   toPlay: function(e) {
     let id = e.currentTarget.dataset.mid
@@ -63,14 +43,14 @@ Page({
 
     backgroundAudioManager.title = music.name
     backgroundAudioManager.singer = music.author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + music.img % 100 + '/300_albumpic_' + music.img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + music.url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr =  music.img 
+    backgroundAudioManager.src = music.url
     
     wx.setStorage({
       key: "music",
       data: valmusic
     })
-
+//写入热搜词
     wx.request({
       url: 'https://www.mosillion.top/TestSSM/hostSearch/addHostWord',
       data:{
@@ -93,13 +73,13 @@ Page({
     var that=this
     if(val){
       wx.request({
-        url: 'https://route.showapi.com/213-1',
+        url: 'https://api.bzqll.com/music/tencent/search',
         data: {
-          "showapi_timestamp":that.formatterDateTime(), 
-          "showapi_appid": 74206,
-          "showapi_sign":'3156c98034d946229d61c187c32b4102',
-          "keyword": val,
-          "page": '1'
+          key:579621905,
+          s: val,
+          type:'song',
+          limit:20,
+          offset: '1'
         },
         method:'GET',
         dataType:'json',
@@ -109,13 +89,15 @@ Page({
         success: function (res) {
           // console.log(res)
           let allMusic = []
-          let list = res.data.showapi_res_body.pagebean.contentlist
+          let list = res.data.data
           for (let i = 0; i < list.length; i++) {
             let music = {}
-            music.name = list[i].songname
-            music.author = list[i].singername
-            music.url = list[i].songmid
-            music.img = list[i].albumid
+            music.name = list[i].name
+            music.author = list[i].singer
+            music.url = list[i].url
+            music.img = list[i].pic
+            music.lrc=list[i].lrc
+            music.id=list[i].id
             allMusic[i] = music
           }
           that.setData({
@@ -144,13 +126,13 @@ Page({
       key:key
     })
     wx.request({
-      url: 'https://route.showapi.com/213-1',
+      url: 'https://api.bzqll.com/music/tencent/search',
       data: {
-        "showapi_timestamp": that.formatterDateTime(),
-        "showapi_appid": 74206,
-        "showapi_sign": '3156c98034d946229d61c187c32b4102',
-        "keyword": key,
-        "page": '1'
+        key: 579621905,
+        s: key,
+        type: 'song',
+        limit: 20,
+        offset: '1'
       },
       method: 'GET',
       dataType: 'json',
@@ -158,16 +140,17 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         let allMusic = []
-        console.log(res)
-        let list = res.data.showapi_res_body.pagebean.contentlist
+        let list = res.data.data
         for (let i = 0; i < list.length; i++) {
           let music = {}
-          music.name = list[i].songname
-          music.author = list[i].singername
-          music.url = list[i].songmid
-          music.img = list[i].albumid
+          music.name = list[i].name
+          music.author = list[i].singer
+          music.url = list[i].url
+          music.img = list[i].pic
+          music.lrc = list[i].lrc
+          music.id = list[i].id
           allMusic[i] = music
         }
         that.setData({
@@ -190,13 +173,13 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: 'https://route.showapi.com/213-1',
+      url: 'https://api.bzqll.com/music/tencent/search',
       data: {
-        "showapi_timestamp": that.formatterDateTime(),
-        "showapi_appid": 74206,
-        "showapi_sign": '3156c98034d946229d61c187c32b4102',
-        "keyword": val,
-        "page": page
+        key: 579621905,
+        s: val,
+        type: 'song',
+        limit: 20,
+        offset: page
       },
       method: 'GET',
       dataType: 'json',
@@ -206,13 +189,15 @@ Page({
       success: function (res) {
         wx.hideLoading()
         let allMusic = that.data.allMusic
-        let list = res.data.showapi_res_body.pagebean.contentlist
+        let list = res.data.data
         for (let i = 0; i < list.length; i++) {
           let music = {}
-          music.name = list[i].songname
-          music.author = list[i].singername
-          music.url = list[i].songmid
-          music.img = list[i].albumid
+          music.name = list[i].name
+          music.author = list[i].singer
+          music.url = list[i].url
+          music.img = list[i].pic
+          music.lrc = list[i].lrc
+          music.id = list[i].id
           allMusic[listNum] = music
           listNum=listNum+1
         }

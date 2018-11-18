@@ -103,7 +103,7 @@ Page({
         }, {
             region: 'NCN',
             uploadURL: 'https://up-z1.qbox.me',
-            domain: 'pak6mqt97.bkt.clouddn.com',
+            domain: 'qiniu.mosillion.top',
             shouldUseQiniuFileName: false,
             uptokenURL: 'https://www.mosillion.top/TestSSM/qiniu/getToken',
             key: 'video/' + upthis.data.open + time

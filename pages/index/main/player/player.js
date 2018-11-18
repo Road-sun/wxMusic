@@ -85,8 +85,8 @@ Page({
         })
         backgroundAudioManager.title = this.data.music.name
         backgroundAudioManager.singer = this.data.music.author
-        backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.music.img % 100 + '/300_albumpic_' + this.data.music.img + '_0.jpg'
-        backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.music.url + '.m4a?fromtag=0&guid=126548448'
+        backgroundAudioManager.coverImgUr =  this.data.music.img
+        backgroundAudioManager.src =  this.data.music.url 
       } else {
         backgroundAudioManager.play()
         this.setData({
@@ -136,11 +136,11 @@ Page({
     this.setData({
       music: this.data.playlist[rnum]
     })
-    this.getLyric(this.data.playlist[rnum].url)
+    this.getLyric(this.data.playlist[rnum].id)
     backgroundAudioManager.title = this.data.playlist[rnum].name
     backgroundAudioManager.singer = this.data.playlist[rnum].author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[rnum].img % 100 + '/300_albumpic_' + this.data.playlist[rnum].img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[rnum].url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr =  this.data.playlist[rnum]
+    backgroundAudioManager.src =this.data.playlist[rnum].url 
 
     this.judgeLoodId()
 
@@ -161,11 +161,11 @@ Page({
     this.setData({
       music: this.data.playlist[this.data.loopId]
     })
-    this.getLyric(this.data.playlist[this.data.loopId].url)
+    this.getLyric(this.data.playlist[this.data.loopId].id)
     backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
     backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[this.data.loopId].img % 100 + '/300_albumpic_' + this.data.playlist[this.data.loopId].img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[this.data.loopId].url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr = this.data.playlist[this.data.loopId].img 
+    backgroundAudioManager.src = this.data.playlist[this.data.loopId].url
 
 
   },
@@ -174,8 +174,8 @@ Page({
   loopSingle: function() {
     backgroundAudioManager.title = this.data.music.name
     backgroundAudioManager.singer = this.data.music.author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.music.img % 100 + '/300_albumpic_' + this.data.music.img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.music.url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr = this.data.music.img 
+    backgroundAudioManager.src = this.data.music.url 
 
   },
 
@@ -243,11 +243,11 @@ Page({
     this.setData({
       music: this.data.playlist[this.data.loopId]
     })
-    this.getLyric(this.data.playlist[this.data.loopId].url)
+    this.getLyric(this.data.playlist[this.data.loopId].id)
     backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
     backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[this.data.loopId].img % 100 + '/300_albumpic_' + this.data.playlist[this.data.loopId].img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[this.data.loopId].url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr = this.data.playlist[this.data.loopId].img 
+    backgroundAudioManager.src =this.data.playlist[this.data.loopId].url 
 
     let loopId1 = this.data.loopId
     wx.setStorage({
@@ -281,11 +281,11 @@ Page({
     this.setData({
       music: this.data.playlist[this.data.loopId]
     })
-    this.getLyric(this.data.playlist[this.data.loopId].url)
+    this.getLyric(this.data.playlist[this.data.loopId].id)
     backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
     backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
-    backgroundAudioManager.coverImgUr = 'http://imgcache.qq.com/music/photo/album_300/' + this.data.playlist[this.data.loopId].img % 100 + '/300_albumpic_' + this.data.playlist[this.data.loopId].img + '_0.jpg'
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/C100' + this.data.playlist[this.data.loopId].url + '.m4a?fromtag=0&guid=126548448'
+    backgroundAudioManager.coverImgUr = this.data.playlist[this.data.loopId].img 
+    backgroundAudioManager.src = this.data.playlist[this.data.loopId].url
 
     let loopId2 = this.data.loopId
     wx.setStorage({
@@ -351,7 +351,7 @@ Page({
           music: JSON.parse(res.data)
         })
 
-        that.getLyric(JSON.parse(res.data).url)
+        that.getLyric(JSON.parse(res.data).id)
 
       }
     })

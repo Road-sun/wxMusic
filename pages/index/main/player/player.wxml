@@ -5,7 +5,7 @@
 </view>
 
 <view class='music-animation'>
-  <image class="music-img {{isplay?'continue-play':'pause-play'}}" src='http://imgcache.qq.com/music/photo/album_300/{{music.img%100}}/300_albumpic_{{music.img}}_0.jpg' wx:if='{{lyricChange==1}}' bindtap='lyricChangeEvent'></image>
+  <image class="music-img {{isplay?'continue-play':'pause-play'}}" src='{{music.img}}' wx:if='{{lyricChange==1}}' bindtap='lyricChangeEvent'></image>
 
   <scroll-view scroll-y class='music-lyric' wx:if='{{lyricChange==2}}' bindtap='lyricChangeEvent' id='lyricBox' scroll-into-view="{{module.toId(lineNO)}}">
     <block wx:for='{{lyric}}'>
