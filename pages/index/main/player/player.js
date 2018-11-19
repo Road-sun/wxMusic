@@ -24,30 +24,6 @@ Page({
     lineNO: 0,
   },
 
-
-  formatterDateTime: function() {
-    var date = new Date()
-    var month = date.getMonth() + 1
-    var datetime = date.getFullYear() +
-      "" // "年"
-      +
-      (month >= 10 ? month : "0" + month) +
-      "" // "月"
-      +
-      (date.getDate() < 10 ? "0" + date.getDate() : date
-        .getDate()) +
-      "" +
-      (date.getHours() < 10 ? "0" + date.getHours() : date
-        .getHours()) +
-      "" +
-      (date.getMinutes() < 10 ? "0" + date.getMinutes() : date
-        .getMinutes()) +
-      "" +
-      (date.getSeconds() < 10 ? "0" + date.getSeconds() : date
-        .getSeconds());
-    return datetime;
-  },
-
   //歌词封面切换
   lyricChangeEvent: function() {
     if (this.data.lyricChange == 1) {
@@ -136,7 +112,7 @@ Page({
     this.setData({
       music: this.data.playlist[rnum]
     })
-    this.getLyric(this.data.playlist[rnum].id)
+    this.getLyric()
     backgroundAudioManager.title = this.data.playlist[rnum].name
     backgroundAudioManager.singer = this.data.playlist[rnum].author
     backgroundAudioManager.coverImgUr =  this.data.playlist[rnum]
@@ -161,7 +137,7 @@ Page({
     this.setData({
       music: this.data.playlist[this.data.loopId]
     })
-    this.getLyric(this.data.playlist[this.data.loopId].id)
+    this.getLyric()
     backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
     backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
     backgroundAudioManager.coverImgUr = this.data.playlist[this.data.loopId].img 
@@ -184,22 +160,11 @@ Page({
   getLyric: function(url) {
     let that = this
     wx.request({
-      url: 'https://route.showapi.com/213-2',
-      data: {
-        "showapi_timestamp": that.formatterDateTime(),
-        "showapi_appid": 74206,
-        "showapi_sign": '3156c98034d946229d61c187c32b4102',
-        "musicid": url
-      },
-      method: 'GET',
-      dataType: 'json',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-
+      url: that.data.music.lrc,
+      success: function (res) {
+        // console.log(res);
         let medisArray = []
-        let medis = res.data.showapi_res_body.lyric
+        let medis = res.data
         let medises = medis.split("\n")
 
         for (var i = 0; i < medises.length; i++) {
@@ -212,12 +177,9 @@ Page({
           }
         }
 
-        // console.log(medisArray)
         that.setData({
           lyric: medisArray
-        })
-
-        // that.timeLyric()
+        }) 
       }
     })
   },
@@ -243,7 +205,7 @@ Page({
     this.setData({
       music: this.data.playlist[this.data.loopId]
     })
-    this.getLyric(this.data.playlist[this.data.loopId].id)
+    this.getLyric()
     backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
     backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
     backgroundAudioManager.coverImgUr = this.data.playlist[this.data.loopId].img 
@@ -281,7 +243,7 @@ Page({
     this.setData({
       music: this.data.playlist[this.data.loopId]
     })
-    this.getLyric(this.data.playlist[this.data.loopId].id)
+    this.getLyric()
     backgroundAudioManager.title = this.data.playlist[this.data.loopId].name
     backgroundAudioManager.singer = this.data.playlist[this.data.loopId].author
     backgroundAudioManager.coverImgUr = this.data.playlist[this.data.loopId].img 
@@ -351,7 +313,7 @@ Page({
           music: JSON.parse(res.data)
         })
 
-        that.getLyric(JSON.parse(res.data).id)
+        that.getLyric();
 
       }
     })
@@ -405,19 +367,8 @@ Page({
 
 
       this.timeLyric()
-      // if (lineNo == medisArray.length - 1 && backgroundAudioManager.currentTime.toFixed(3) >= parseFloat(medisArray[lineNo].t)) {
-      //   this.setData({
-      //     lineNO: 0
-      //   })
-      // }
-      // if (parseFloat(medisArray[lineNo].t) <= backgroundAudioManager.currentTime.toFixed(3) && backgroundAudioManager.currentTime.toFixed(3) <= parseFloat(medisArray[lineNo + 1].t)) {
-      //   // console.log('cu2')
-      //   this.setData({
-      //     lineNO: ++lineNo
-      //   })
-      // }
-
-
+      
+    
     })
 
     //播放结束

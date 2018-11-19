@@ -47,10 +47,12 @@ Page({
       success: function(res) {},
       fail:function(res){
         let music = {
-          author: 'xilly',
-          url: '004JWpaR4IMtxh',
-          name: 'DAY LOVE NIGHT',
-          img: 1276929,
+          name: '地球ぎ',
+          url: 'https://api.bzqll.com/music/tencent/url?id=000wOruH43YGnm&key=579621905',
+          author: '松澤由美',
+          img: 'https://api.bzqll.com/music/tencent/pic?id=000wOruH43YGnm&key=579621905',
+          lrc:'https://api.bzqll.com/music/tencent/lrc?id=000wOruH43YGnm&key=579621905'
+
         }
         wx.setStorage({
           key: 'music',

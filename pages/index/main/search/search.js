@@ -20,7 +20,7 @@ Page({
       wx.request({
         url: 'https://www.mosillion.top/TestSSM/hostSearch/getHostWord',
         success:function(res){
-          console.log(res.data)
+          // console.log(res.data)
           let host=res.data.host
           if(host!=[]){
             that.setData({

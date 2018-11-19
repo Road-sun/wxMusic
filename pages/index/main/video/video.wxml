@@ -1,5 +1,5 @@
 <!--pages/index/main/video/video.wxml-->
-<video class='video' src="http://pak6mqt97.bkt.clouddn.com/video/{{video.video}}" enable-danmu danmu-btn controls danmu-list="{{danmuList}}" bindtimeupdate='getCurrentTime' autoplay='true' page-gesture='true'></video>
+<video class='video' wx:if='{{video.video}}' src="http://qiniu.mosillion.top/video/{{video.video}}" enable-danmu danmu-btn controls danmu-list="{{danmuList}}" bindtimeupdate='getCurrentTime' autoplay='true' page-gesture='true'></video>
 <scroll-view class='scroll-body' scroll-y='true'>
   <view class='title'>{{video.title}}</view>
   <view class='user'>

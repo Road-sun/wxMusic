@@ -70,6 +70,9 @@ Page({
         wx.hideLoading()
       }
     })
+
+
+    
   },
 
   /**
