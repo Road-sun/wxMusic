@@ -12,7 +12,29 @@ Page({
     key:null,
     val:null,
     page: 2,
-    allMusicNum:null
+    allMusicNum:null,
+    songbook:null,
+  },
+
+//改变曲库
+  songChange:function(e){
+    if (e.detail.value){
+      this.setData({
+        songbook:1
+      })
+      wx.setStorage({
+        key: 'songbook',
+        data: 1,
+      })
+    }else{
+      this.setData({
+        songbook: 0
+      })
+      wx.setStorage({
+        key: 'songbook',
+        data: 0,
+      })
+    }
   },
 
   getHostSearchWord:function(){
@@ -66,6 +88,15 @@ Page({
   //搜索
   search:function(e){
     let val = e.detail.value
+    let  geturl=null;
+    let songfrom=null;
+    if(this.data.songbook){
+      geturl ='https://api.bzqll.com/music/netease/search';
+      songfrom ='netease'
+    } else{
+      geturl = 'https://api.bzqll.com/music/tencent/search';
+      songfrom = 'tencent'
+    }
     this.setData({
       val:val,
       page:2
@@ -73,7 +104,7 @@ Page({
     var that=this
     if(val){
       wx.request({
-        url: 'https://api.bzqll.com/music/tencent/search',
+        url: geturl,
         data: {
           key:579621905,
           s: val,
@@ -98,6 +129,7 @@ Page({
             music.img = list[i].pic
             music.lrc=list[i].lrc
             music.id=list[i].id
+            music.from=songfrom
             allMusic[i] = music
           }
           that.setData({
@@ -117,6 +149,15 @@ Page({
   //关键字搜索
   keySearch:function(e){
     let key = e.currentTarget.dataset.key
+    let geturl = null;
+    let songfrom = null;
+    if (this.data.songbook) {
+      geturl = 'https://api.bzqll.com/music/netease/search';
+      songfrom = 'netease'
+    } else {
+      geturl = 'https://api.bzqll.com/music/tencent/search';
+      songfrom = 'tencent'
+    }
     this.setData({
       val: key,
       page: 2
@@ -126,7 +167,7 @@ Page({
       key:key
     })
     wx.request({
-      url: 'https://api.bzqll.com/music/tencent/search',
+      url: geturl,
       data: {
         key: 579621905,
         s: key,
@@ -151,6 +192,7 @@ Page({
           music.img = list[i].pic
           music.lrc = list[i].lrc
           music.id = list[i].id
+          music.from = songfrom
           allMusic[i] = music
         }
         that.setData({
@@ -168,12 +210,22 @@ Page({
     let listNum=this.data.allMusic.length
     // console.log(page)
     // console.log(listNum)
+    let geturl = null;
+    let songfrom = null;
+    if (this.data.songbook) {
+      geturl = 'https://api.bzqll.com/music/netease/search';
+      songfrom = 'netease'
+    } else {
+      geturl = 'https://api.bzqll.com/music/tencent/search';
+      songfrom = 'tencent'
+    }
+
     var that = this
     wx.showLoading({
       title: '加载中',
     })
     wx.request({
-      url: 'https://api.bzqll.com/music/tencent/search',
+      url: geturl,
       data: {
         key: 579621905,
         s: val,
@@ -198,6 +250,7 @@ Page({
           music.img = list[i].pic
           music.lrc = list[i].lrc
           music.id = list[i].id
+          music.from = songfrom
           allMusic[listNum] = music
           listNum=listNum+1
         }
@@ -229,7 +282,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+    let that=this;
+      wx.getStorage({
+        key: 'songbook',
+        success: function(res) {
+          that.setData({
+            songbook: res.data
+          })
+        },
+      })
   },
 
   /**

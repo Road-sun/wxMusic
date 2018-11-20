@@ -62,6 +62,7 @@ Page({
             music.img = list[i].pic
             music.lrc = list[i].lrc
             music.id=list[i].id
+            music.from = 'tencent'
             allMusic[i]=music
         }
         that.setData({

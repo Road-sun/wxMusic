@@ -5,6 +5,12 @@
   <input placeholder='search your love' class='search-input' bindinput='search' value='{{key}}'></input>
 </view>
 <view class="{{isSearch?'close-search':'hot-search'}}">
+  <view class='hot-search-title'>选择曲库</view>
+  <view class='select-song'>
+        <view >QQ音乐</view>
+        <switch  bindchange="songChange" checked="{{songbook?true:false}}" color='pink' class='select-bt'/>
+        <view>网易云</view>
+  </view>
   <view class='hot-search-title'>热门搜索</view>
     <block wx:for='{{reconmmend}}'>
         <view class="hot-search-box" data-key='{{item}}' bindtap='keySearch'>{{item}}</view>

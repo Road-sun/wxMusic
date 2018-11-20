@@ -84,6 +84,18 @@ Page({
       }
     })
 
+    wx.getStorage({
+      key: 'songbook',
+      success: function (res) { },
+      fail: function (res) {
+        console.log("xxx")
+        wx.setStorage({
+          key: 'songbook',
+          data: 0,
+        })
+      }
+    })
+
     
     
     

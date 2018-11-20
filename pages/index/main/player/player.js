@@ -157,7 +157,7 @@ Page({
 
 
   //获取歌词
-  getLyric: function(url) {
+  getLyric: function() {
     let that = this
     wx.request({
       url: that.data.music.lrc,

@@ -64,6 +64,15 @@ page{
   color: gray
 }
 
+.select-song{
+  display: flex;
+  box-sizing: border-box;
+  padding-left: 50rpx; 
+}
+.select-bt{
+  margin: 0 20rpx;
+}
+
 .hot-search-box{
   display: inline-block;
   height: 70rpx;
