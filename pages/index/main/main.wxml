@@ -76,7 +76,7 @@
 
           <block wx:for="{{video}}">
             <view class='video-card'>
-              <view class='video-img' style="background:url(http://qiniu.mosillion.top/video/{{imgLazy[index] ? item.video:'zzz'}}?vframe/png/offset?vframe/png/offset/1/w/310/h/170/q/75|imageslim);background-size:cover" bindtap='toVideo' data-id='{{item.id}}'>
+              <view class='video-img' style="background:url(http://qiniu.mosillion.top/video/{{imgLazy[index] ? item.video:'zzz'}}?vframe/png/offset/1/w/310/h/170/q/75|imageslim);background-size:cover" bindtap='toVideo' data-id='{{item.id}}'>
                 <image src='../../../img/play.png'></image>
               </view>
               <view class='video-title'>{{item.title}}</view>
@@ -103,10 +103,10 @@
       <swiper-item>
         <scroll-view class='third-all' scroll-y='true'>
           <view class='third-body'>
-            <swiper class='third-swiper-img' indicator-dots='true' autoplay='true' interval='3000' circular='true'>
+            <swiper class='third-swiper-img' indicator-dots='true' autoplay='true' interval='5000' circular='true'>
               <block wx:for="{{swiperImg}}">
                 <swiper-item>
-                  <view class='third-back-img' style='background:url(http://p74fhw4q5.bkt.clouddn.com/back-{{item.url}});background-size:cover'></view>
+                  <view class='third-back-img' style='background:url(http://qiniu.mosillion.top/img/back-{{item.url}});background-size:cover'></view>
                 </swiper-item>
               </block>
             </swiper>

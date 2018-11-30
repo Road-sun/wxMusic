@@ -18,7 +18,7 @@ page{
   flex-direction: column;
   width: 100%;
   height: 500rpx;
-  background:url(http://pak6mqt97.bkt.clouddn.com/user-info.jpg);
+  background:url(http://qiniu.mosillion.top/img/user-info.jpg);
   background-size: cover;
   justify-content: flex-end;
   /* padding-bottom: 100rpx;

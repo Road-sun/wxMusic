@@ -9,7 +9,7 @@ page{
   display: flex;
   width: 100%;
   height: 100%;
-  background:url(https://api.mlwei.com/img/api/);
+  background:url(http://qiniu.mosillion.top/img/main-bg.jpg);
   background-size: cover;
   align-items: center
 }
