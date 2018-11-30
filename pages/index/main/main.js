@@ -638,8 +638,8 @@ Page({
     this.getPlayMuscic();
     // console.log(this.data.loopId)
 
-    //获取视频列表
-    this.getAllVideo();
+    // //获取视频列表
+    // this.getAllVideo();
 
     //获取热门歌单
     this.getHostMusicList();
