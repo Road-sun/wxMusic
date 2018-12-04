@@ -7,7 +7,8 @@ Page({
    */
   data: {
     allMusic: [],
-    page:2
+    page:2,
+    playlist: [],
   },
   //播放音乐
   toPlay: function (e) {
@@ -27,9 +28,61 @@ Page({
       key: "music",
       data: valmusic
     })
+
+    //加入本地播放列表
+    this.getList(music);
+
   },
 
-  //播放mv
+  //从本地获取播放列表
+  getList: function (e) {
+    var that = this
+    wx.getStorage({
+      key: 'playlist',
+      success: function (res) {
+        let pllist = JSON.parse(res.data)
+        that.setData({
+          playlist: pllist
+        })
+        that.addMusicToList(e)
+        // console.log('b')
+        that.setPlaylistToLocal()
+      },
+    })
+
+  },
+
+  //向list中添加当前播放音乐
+  addMusicToList: function (e) {
+    var that = this
+    let mus = e
+    let newlist = this.data.playlist
+    let isRepeat = false
+    for (let i = 0; i < newlist.length; i++) {
+      if (mus.url == newlist[i].url) {
+        isRepeat = true
+      }
+    }
+    if (!isRepeat) {
+      let len = newlist.length
+      newlist[len] = mus
+      that.setData({
+        playlist: newlist
+      })
+    }
+  },
+
+  //将playlist存入本地
+  setPlaylistToLocal: function () {
+    var that = this
+    let newlist = JSON.stringify(this.data.playlist)
+    wx.setStorage({
+      key: 'playlist',
+      data: newlist,
+    })
+    // console.log(this.data.music)
+    // console.log(this.data.playlist)
+  },
 
   /**
    * 生命周期函数--监听页面加载

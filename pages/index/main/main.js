@@ -297,6 +297,7 @@ Page({
   //获取当前播放音乐
   getPlayMuscic: function() {
     var that = this
+    //  console.log('ssssssssssss');
     wx.getStorage({
       key: 'music',
       success: function(res) {
@@ -320,9 +321,9 @@ Page({
         that.setData({
           playlist: pllist
         })
-        that.addMusicToList()
-        // console.log('b')
-        that.setPlaylistToLocal()
+        // that.addMusicToList()
+        // // console.log('b')
+        // that.setPlaylistToLocal()
         that.judgeLoodId()
       },
     })
@@ -635,7 +636,7 @@ Page({
   
 
     //获取播放信息，播放列表流程
-    this.getPlayMuscic();
+    // this.getPlayMuscic();
     // console.log(this.data.loopId)
 
     // //获取视频列表
