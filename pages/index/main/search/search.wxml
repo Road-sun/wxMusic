@@ -18,12 +18,12 @@
 </view>
 <scroll-view class="{{isSearch?'search-content':'close-search'}}" scroll-y='true' bindscrolltolower="lazyLoad">
     <block wx:for="{{allMusic}}">
-      <view class='search-list' data-mid='{{index}}' bindtap='toPlay' hover-class='tap-color'>
-        <view class='music-info'>
+      <view class='search-list' hover-class='tap-color'>
+        <view class='music-info' data-mid='{{index}}' bindtap='toPlay' >
           <view class='music-name'>{{item.name}}</view>
           <view class='music-author'>{{item.author}}</view>
         </view>
-        <view class='list-more'>
+        <view class='list-more' data-mid='{{index}}' bindtap='moreSetting' >
             <text class="iconfont icon-gengduoxiao"></text>
         </view>
       

@@ -84,6 +84,25 @@ Page({
     // console.log(this.data.playlist)
   },
 
+  //更多设置（弹出底部框体）
+  moreSetting: function (e) {
+    let that=this
+    let id = e.currentTarget.dataset.mid
+    let music = this.data.allMusic[id]
+    wx.showActionSheet({
+      itemList: ['加入播放列表',  '更多设置','待开发'],
+      success: function (res) {
+        console.log(res.tapIndex)
+        if (res.tapIndex == 0) {
+          that.getList(music);
+        }
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

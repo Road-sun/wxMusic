@@ -8,7 +8,7 @@
           <view class='music-name'>{{item.name}}</view>
           <view class='music-author'>{{item.author}}</view>
         </view>
-        <view class='list-more' bindtap=''>
+        <view class='list-more' data-mid='{{index}}' bindtap='moreSetting'>
             <text class="iconfont icon-gengduoxiao"></text>
         </view>
       
