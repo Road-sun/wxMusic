@@ -9,7 +9,7 @@ page{
   display: flex;
   width: 100%;
   height: 100rpx;
-  background: red;
+  background: #FF3030;
   color: white;
   box-sizing: border-box;
   padding: 0 20rpx;
@@ -57,7 +57,7 @@ page{
 
 .sub-bt-2{
   background: white;
-  color:red;
+  color:#FF3030;
   border: 1rpx solid #bb1c1c;
 }
 

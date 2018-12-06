@@ -15,7 +15,7 @@ page{
   justify-content: center;
   height: 0;
   flex-grow: 0.8;
-  background-color: red;
+  background-color: #FF3030;
   align-items: center;
 }
 

@@ -16,7 +16,7 @@ page{
 }
 
 .color-zan::before{
-  color: red
+  color: #FF3030
 }
 
 ::-webkit-scrollbar {

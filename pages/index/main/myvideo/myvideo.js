@@ -156,7 +156,40 @@ Page({
     })
   },
 
+  //更多设置（弹出底部框体）
+  moreSetting: function (e) {
+    let that=this
+    let id = e.currentTarget.dataset.mid
+    let index = e.currentTarget.dataset.iid
+    wx.showActionSheet({
+      itemList: ['分享动态', '删除动态',],
+      success: function (res) {
+        console.log(res.tapIndex)
+        if (res.tapIndex == 0) {
+          
+        }
+        if (res.tapIndex == 1){
+          wx.request({
+            url: 'https://www.mosillion.top/TestNode/HideVideo?id='+id,
+            success:function(res){
+              console.log(res);
+              if(res.data.state==1){
+                  let list=that.data.video
+                  list.splice(index,1);
+                  that.setData({
+                    video:list
+                  })
+              }
+            }
+          })
 
+        }
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
 
 
   /**

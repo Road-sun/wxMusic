@@ -8,7 +8,7 @@ page {
 }
 
 .color-zan::before{
-  color: red
+  color: #FF3030
 }
 
 
@@ -159,7 +159,7 @@ page {
   display: flex;
   height: 9%;
   width: 100%;
-  background-color: red;
+  background-color: #FF3030;
   color: white;
   font-weight: 600;
   justify-content: space-between;
@@ -307,7 +307,7 @@ page {
   width: 65rpx;
   line-height: 65rpx;
   text-align: center;
-  color: red;
+  color: #FF3030;
   font-size: 55rpx;
   margin-right: 25rpx;
 }
@@ -413,7 +413,7 @@ page {
 .third-body {
   display: flex;
   justify-content: center;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 84%, from(#f00), to(#fff), color-stop(0.4, #f00));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 84%, from(#FF3030), to(#fff), color-stop(0.4, #FF3030));
   width: 100%;
   height: 300rpx;
   align-items: flex-end;
@@ -463,7 +463,7 @@ page {
   align-items: center;
   justify-content: center;
   color: white;
-  background-color: red;
+  background-color: #FF3030;
   width: 53%;
   height: 53%;
   border-radius: 50%;
@@ -505,7 +505,7 @@ page {
   display: flex;
   width: 100%;
   height: 225rpx;
-  background-color: red;
+  background-color: #FF3030;
   border-radius: 5rpx;
   justify-content: flex-end
 }
