@@ -15,27 +15,36 @@ Page({
     allMusicNum:null,
     songbook:null,
     playlist: [],
+    songkind:['QQ音乐','网易云音乐','酷狗音乐']
   },
 
 //改变曲库
   songChange:function(e){
-    if (e.detail.value){
-      this.setData({
-        songbook:1
-      })
-      wx.setStorage({
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    this.setData({
+      songbook:  parseInt(e.detail.value)
+    })
+    wx.setStorage({
         key: 'songbook',
-        data: 1,
+        data: parseInt(e.detail.value),
       })
-    }else{
-      this.setData({
-        songbook: 0
-      })
-      wx.setStorage({
-        key: 'songbook',
-        data: 0,
-      })
-    }
+    // if (e.detail.value){
+    //   this.setData({
+    //     songbook:1
+    //   })
+    //   wx.setStorage({
+    //     key: 'songbook',
+    //     data: 1,
+    //   })
+    // }else{
+    //   this.setData({
+    //     songbook: 0
+    //   })
+    //   wx.setStorage({
+    //     key: 'songbook',
+    //     data: 0,
+    //   })
+    // }
   },
 
   getHostSearchWord:function(){
@@ -164,12 +173,17 @@ Page({
     let val = e.detail.value
     let  geturl=null;
     let songfrom=null;
-    if(this.data.songbook){
+    if(this.data.songbook==1){
       geturl ='https://api.bzqll.com/music/netease/search';
       songfrom ='netease'
-    } else{
+    } 
+    if (this.data.songbook == 0){
       geturl = 'https://api.bzqll.com/music/tencent/search';
       songfrom = 'tencent'
+    }
+    if (this.data.songbook == 2){
+      geturl = 'https://api.bzqll.com/music/kugou/search';
+      songfrom = 'kugou'
     }
     this.setData({
       val:val,
@@ -225,12 +239,17 @@ Page({
     let key = e.currentTarget.dataset.key
     let geturl = null;
     let songfrom = null;
-    if (this.data.songbook) {
+    if (this.data.songbook == 1) {
       geturl = 'https://api.bzqll.com/music/netease/search';
       songfrom = 'netease'
-    } else {
+    }
+    if (this.data.songbook == 0) {
       geturl = 'https://api.bzqll.com/music/tencent/search';
       songfrom = 'tencent'
+    }
+    if (this.data.songbook == 2) {
+      geturl = 'https://api.bzqll.com/music/kugou/search';
+      songfrom = 'kugou'
     }
     this.setData({
       val: key,
@@ -255,7 +274,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        // console.log(res)
+        console.log(res)
         let allMusic = []
         let list = res.data.data
         for (let i = 0; i < list.length; i++) {
@@ -286,12 +305,17 @@ Page({
     // console.log(listNum)
     let geturl = null;
     let songfrom = null;
-    if (this.data.songbook) {
+    if (this.data.songbook == 1) {
       geturl = 'https://api.bzqll.com/music/netease/search';
       songfrom = 'netease'
-    } else {
+    }
+    if (this.data.songbook == 0) {
       geturl = 'https://api.bzqll.com/music/tencent/search';
       songfrom = 'tencent'
+    }
+    if (this.data.songbook == 2) {
+      geturl = 'https://api.bzqll.com/music/kugou/search';
+      songfrom = 'kugou'
     }
 
     var that = this
