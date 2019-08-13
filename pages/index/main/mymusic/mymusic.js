@@ -7,7 +7,7 @@ Page({
    */
   data: {
     allMusic: [],
-    page:2,
+    page:1,
     playlist: [],
   },
   //播放音乐
@@ -114,9 +114,10 @@ Page({
     })
     var that=this
     wx.request({
-      url: 'https://api.bzqll.com/music/tencent/songList?key=579621905',
+      url: 'https://v1.itooi.cn/tencent/songList',
       data: {
         id:listid,
+        format:1
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -124,7 +125,7 @@ Page({
       success: function (res) {
         // console.log(res)
         let allMusic=[]
-        let list = res.data.data.songs
+        let list = res.data.data
         for (let i = 0; i<list.length;i++)
         {
             let music = {}

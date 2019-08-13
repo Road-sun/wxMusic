@@ -552,27 +552,28 @@ Page({
   getHostMusicList:function(){
     let that= this
     wx.request({
-      url: 'https://api.bzqll.com/music/tencent/hotSongList',
+      url: 'https://v1.itooi.cn/tencent/songList/hot',
       data:{
-        key:579621905,
         categoryId:10000000,
         sortId:1,
-        limit:14
+        limit:14,
+        pageSize:12 ,
+        page:1
       },
       success:function(res){
         
         let coverArr=[];
         
-        let list=res.data.data
-        // console.log(list)
+        let list=res.data.data.list
+        console.log(res)
         for(let i=0;i<list.length;i++){
           let cover = {};
-          cover.id=list[i].id
-          cover.name = list[i].name
+          cover.id=list[i].dissid
+          cover.name = list[i].dissname
           cover.creator = list[i].creator
-          cover.createTime = list[i].createTime
-          cover.pic = list[i].pic
-          cover.playCount = list[i].playCount 
+          cover.createTime = list[i].createtime
+          cover.pic = list[i].imgurl
+          cover.playCount = list[i].listennum
           coverArr[i]=cover
         }
 

@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/index/main/main",
     "pages/index/main/user/user",
@@ -11,14 +11,15 @@
     "pages/index/main/upload/upload",
     "pages/logs/logs"
   ],
-  "window":{
+  "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FF3030",
-    "navigationBarTitleText": "天天动听",
+    "navigationBarTitleText": "YeahYo",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#eeeeee"
   },
   "requiredBackgroundModes": [
     "audio"
-  ]
+  ],
+  "sitemapLocation": "sitemap.json"
 }

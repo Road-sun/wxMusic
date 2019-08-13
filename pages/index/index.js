@@ -48,11 +48,10 @@ Page({
       fail:function(res){
         let music = {
           name: '地球ぎ',
-          url: 'https://api.bzqll.com/music/tencent/url?id=000wOruH43YGnm&key=579621905',
+          url: 'https://v1.itooi.cn/netease/url?id=614150',
           author: '松澤由美',
-          img: 'https://api.bzqll.com/music/tencent/pic?id=000wOruH43YGnm&key=579621905',
-          lrc:'https://api.bzqll.com/music/tencent/lrc?id=000wOruH43YGnm&key=579621905'
-
+          img: 'http://p2.music.126.net/VevkzzcBfdZGHKQFHsf0Wg==/920291232448667.jpg',
+          lrc:'https://v1.itooi.cn/netease/lrc?id=614150'
         }
         wx.setStorage({
           key: 'music',

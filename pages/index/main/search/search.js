@@ -11,11 +11,11 @@ Page({
     isSearch:false,
     key:null,
     val:null,
-    page: 2,
+    page: 1,
     allMusicNum:null,
     songbook:null,
     playlist: [],
-    songkind:['QQ音乐','网易云音乐','酷狗音乐']
+    songkind:['QQ音乐','网易云音乐','酷狗音乐','酷我音乐','咪咕音乐','百度音乐']
   },
 
 //改变曲库
@@ -28,23 +28,6 @@ Page({
         key: 'songbook',
         data: parseInt(e.detail.value),
       })
-    // if (e.detail.value){
-    //   this.setData({
-    //     songbook:1
-    //   })
-    //   wx.setStorage({
-    //     key: 'songbook',
-    //     data: 1,
-    //   })
-    // }else{
-    //   this.setData({
-    //     songbook: 0
-    //   })
-    //   wx.setStorage({
-    //     key: 'songbook',
-    //     data: 0,
-    //   })
-    // }
   },
 
   getHostSearchWord:function(){
@@ -105,11 +88,36 @@ Page({
     let id = e.currentTarget.dataset.mid
     let music = this.data.allMusic[id]
     wx.showActionSheet({
-      itemList: ['加入播放列表', '更多设置', '待开发'],
+      itemList: ['加入播放列表', '下载', '待开发'],
       success: function (res) {
         console.log(res.tapIndex)
         if (res.tapIndex == 0) {
           that.getList(music);
+        }
+        if(res.tapIndex==1){
+          wx.downloadFile({
+            url: music.url, // 仅为示例，并非真实的资源
+            filePath:'C:\\Users\\lly\\Desktop',
+            success(res) {
+              // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+              console.log(res)
+              if (res.statusCode === 200) {
+                console.log(res.tempFilePath)
+                // wx.saveFile({
+                //   tempFilePath: res.tempFilePath,
+                //   success(res1) {
+                //     console.log(res1.savedFilePath)
+                //   },
+                //   fail:function(err){
+                //     console.log(err)
+                //   }
+                // })
+              }
+            },
+            fail:function(err){
+                console.log(err);
+            }
+          })
         }
       },
       fail: function (res) {
@@ -174,31 +182,43 @@ Page({
     let  geturl=null;
     let songfrom=null;
     if(this.data.songbook==1){
-      geturl ='https://api.bzqll.com/music/netease/search';
+      geturl ='https://v1.itooi.cn/netease/search';
       songfrom ='netease'
     } 
     if (this.data.songbook == 0){
-      geturl = 'https://api.bzqll.com/music/tencent/search';
+      geturl = 'https://v1.itooi.cn/tencent/search';
       songfrom = 'tencent'
     }
     if (this.data.songbook == 2){
-      geturl = 'https://api.bzqll.com/music/kugou/search';
+      geturl = 'https://v1.itooi.cn/kugou/search';
       songfrom = 'kugou'
+    }
+    if (this.data.songbook == 3) {
+      geturl = 'https://v1.itooi.cn/kuwo/search';
+      songfrom = 'kuwo'
+    }
+    if (this.data.songbook == 4) {
+      geturl = 'https://v1.itooi.cn/migu/search';
+      songfrom = 'migu'
+    }
+    if (this.data.songbook == 5) {
+      geturl = 'https://v1.itooi.cn/baidu/search';
+      songfrom = 'baidu'
     }
     this.setData({
       val:val,
-      page:2
+      page:1
     })
     var that=this
     if(val){
       wx.request({
         url: geturl,
         data: {
-          key:579621905,
-          s: val,
-          type:'song',
-          limit:20,
-          offset: '1'
+          keyword: val,
+          type: 'song',
+          pageSize: 20,
+          page: 0,
+          format: 1
         },
         method:'GET',
         dataType:'json',
@@ -240,20 +260,32 @@ Page({
     let geturl = null;
     let songfrom = null;
     if (this.data.songbook == 1) {
-      geturl = 'https://api.bzqll.com/music/netease/search';
+      geturl = 'https://v1.itooi.cn/netease/search';
       songfrom = 'netease'
     }
     if (this.data.songbook == 0) {
-      geturl = 'https://api.bzqll.com/music/tencent/search';
+      geturl = 'https://v1.itooi.cn/tencent/search';
       songfrom = 'tencent'
     }
     if (this.data.songbook == 2) {
-      geturl = 'https://api.bzqll.com/music/kugou/search';
+      geturl = 'https://v1.itooi.cn/kugou/search';
       songfrom = 'kugou'
+    }
+    if (this.data.songbook == 3) {
+      geturl = 'https://v1.itooi.cn/kuwo/search';
+      songfrom = 'kuwo'
+    }
+    if (this.data.songbook == 4) {
+      geturl = 'https://v1.itooi.cn/migu/search';
+      songfrom = 'migu'
+    }
+    if (this.data.songbook == 5) {
+      geturl = 'https://v1.itooi.cn/baidu/search';
+      songfrom = 'baidu'
     }
     this.setData({
       val: key,
-      page: 2
+      page: 1
     })
     var that=this
     this.setData({
@@ -262,11 +294,11 @@ Page({
     wx.request({
       url: geturl,
       data: {
-        key: 579621905,
-        s: key,
+        keyword: key,
         type: 'song',
-        limit: 20,
-        offset: '1'
+        pageSize: 20,
+        page: 0,
+        format: 1
       },
       method: 'GET',
       dataType: 'json',
@@ -274,7 +306,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         let allMusic = []
         let list = res.data.data
         for (let i = 0; i < list.length; i++) {
@@ -306,18 +338,29 @@ Page({
     let geturl = null;
     let songfrom = null;
     if (this.data.songbook == 1) {
-      geturl = 'https://api.bzqll.com/music/netease/search';
+      geturl = 'https://v1.itooi.cn/netease/search';
       songfrom = 'netease'
     }
     if (this.data.songbook == 0) {
-      geturl = 'https://api.bzqll.com/music/tencent/search';
+      geturl = 'https://v1.itooi.cn/tencent/search';
       songfrom = 'tencent'
     }
     if (this.data.songbook == 2) {
-      geturl = 'https://api.bzqll.com/music/kugou/search';
+      geturl = 'https://v1.itooi.cn/kugou/search';
       songfrom = 'kugou'
     }
-
+    if (this.data.songbook == 3) {
+      geturl = 'https://v1.itooi.cn/kuwo/search';
+      songfrom = 'kuwo'
+    }
+    if (this.data.songbook == 4) {
+      geturl = 'https://v1.itooi.cn/migu/search';
+      songfrom = 'migu'
+    }
+    if (this.data.songbook == 5) {
+      geturl = 'https://v1.itooi.cn/baidu/search';
+      songfrom = 'baidu'
+    }
     var that = this
     wx.showLoading({
       title: '加载中',
@@ -325,11 +368,11 @@ Page({
     wx.request({
       url: geturl,
       data: {
-        key: 579621905,
-        s: val,
+        keyword: val,
         type: 'song',
-        limit: 20,
-        offset: page
+        pageSize: 20,
+        page: page,
+        format: 1
       },
       method: 'GET',
       dataType: 'json',
